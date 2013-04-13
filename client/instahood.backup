@@ -1,6 +1,6 @@
 <head>
     <title>HTF</title>
-     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbZd3kjFpBpC-23bTNITmYPD-HW2CetIQ&sensor=true&libraries=places"></script>
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSoM9HgrTGLXgnm9mjzDY0194TPVx0mtw&sensor=true&libraries=places"></script>
     <meta name="viewport", content="width=device-width, initial-scale=0.5, user-scalable=no">
     <script type="text/javascript">
       var _gaq = _gaq || [];
@@ -91,4 +91,6 @@
   <div id="map_canvas"></div>
 </template>
 
-            
+            <!-- <a id="timestamp" href="{{ link }}" target="_blank">
+                <span>{{ time }}</span>
+            </a> -->

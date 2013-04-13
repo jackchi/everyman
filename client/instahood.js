@@ -2,9 +2,11 @@ var INSTAID = '4e7f292665474f8fae3820d7f336f164';
 var markersArray = [];
 var instaArray = [];
 
+Everyman = new Meteor.Collection("Everyman");
+
 Meteor.startup(function(){
   Session.set('photoset', '');
-  Session.set('zoomed', ''); 
+  Session.set('zoomed', '');
   getTwitter();
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
@@ -17,7 +19,7 @@ Meteor.startup(function(){
       getNewPhotos({lat: success.coords.latitude, lng: success.coords.longitude, distance:'3000', client_id: INSTAID});
       createMap(navLatLng);
       placeNavMarker(navLatLng);
-      addClickListener();
+      alertddClickListener();
       addAutocomplete();
   }
 
@@ -31,8 +33,6 @@ Meteor.startup(function(){
     addAutocomplete();
   }
 
-  $('body').append('<a href="http://hackreactor.com"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://i.imgur.com/x86kKmF.png alt="Built at Hack Reactor"></a>');
-  $('#zoomed-image').hide();
 });
 
 Template.instagram.photoset = function(){
@@ -234,6 +234,7 @@ var getNewPhotos = function (place) {
       500: function () {
         alert('Sorry, service is temporarily down.');
       }
+      
     }
   });
 };
