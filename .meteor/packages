@@ -9,3 +9,6 @@ preserve-inputs
 bootstrap
 coffeescript
 jquery
+accounts-ui
+accounts-facebook
+accounts-password

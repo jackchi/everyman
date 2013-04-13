@@ -1,6 +1,10 @@
 if (Meteor.isServer) {
+  self= this;
+
   Meteor.startup(function () {
+    
     if (Everyman.find().count() === 0) {
+      console.log("server");
       var names = ["Jack Chi",
                    "Zak Zibrat",
                    "Marie Curie",

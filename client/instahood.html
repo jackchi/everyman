@@ -1,17 +1,8 @@
 <head>
     <title>HTF</title>
+    <script src='https://cdn.firebase.com/v0/firebase.js'></script>
      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbZd3kjFpBpC-23bTNITmYPD-HW2CetIQ&sensor=true&libraries=places"></script>
-    <meta name="viewport", content="width=device-width, initial-scale=0.5, user-scalable=no">
-    <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-39351430-1']);
-      _gaq.push(['_trackPageview']);
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-    </script>
+    
 </head>
 
 <body>
@@ -23,72 +14,27 @@
     <nav>
         <span>Man in the Mirror</span>
         <input id="searchTextField" type="text" size="60">
-
-        {{#constant}}
-            <span class="tip">Click on the map or use the search</span>
+        
+            <span class="tip">Click on the map or use the search
+            </span>
+            <span class="login">
+                {{loginButtons align="right"}} 
+            </span>
             <div id="social">
                 <a href="https://twitter.com/share" class="twitter-share-button" data-via="peacemigrator" data-size="large" data-hashtags="htforum" data-text="@healthtechforum Help the Homeless">Tweet</a>
             </div>
-        {{/constant}}
+        
     </nav>
 </template>
 
 <template name="content">
     <div id="container">
-        <!-- {{> instagram}} -->
-        {{> map}}
+       {{> map}}
     </div>
 </template>
 
-<template name="instagram">
-    <div id="photos-container">
-        {{#each photoset}}
-        <div class="photodiv" >
-            <img class="photo" src="{{ images.low_resolution.url }}" alt="">
-            <a href="http://instagram.com/{{ user.username }}" target="_blank">
-                <span>
-                    <img class="profilePicture" src="{{user.profile_picture}}" />
-                    @{{ user.username }}
-                </span>
-                <br/>
-            </a>
-            <span class="caption">
-                {{#if caption}}
-                    <a href="{{link}}" target="_blank"><span>{{ caption.text }}<span></a>
-                {{^}}
-                    <a href="{{link}}" target="_blank"><span>No Comment...<span></a>
-                {{/if}}
-            </span>
-            <span class="social-coffee">
-                <div class="twitter">
-                    <a href="https://twitter.com/home?status={{link}} via @instahood http://instahood.meteor.com" target="_blank">
-                        <div class="twitter-button"></div>
-                    </a>
-                </div>
-                <div class="facebook">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{link}}&t=via http://instahood.meteor.com" target="_blank">
-                        <div class="fb-button"></div>
-                    </a>
-                </div>
-            </span>
-        </div>
-        {{^}}
-            <span class="loading">LOADING...</span>
-            <div class="bubblingG">
-                <span id="bubblingG_1">
-                </span>
-                <span id="bubblingG_2">
-                </span>
-                <span id="bubblingG_3">
-                </span>
-            </div>
-        {{/each}}
-        <span id="zoomed-image"></span>
-    </div>
-</template>
+
 
 <template name="map">
   <div id="map_canvas"></div>
 </template>
-
-            

@@ -5,7 +5,7 @@ html, body {
     font-size: 15px;
     font-family: "Arial";
     background: url('/background.png');
-    /*color:white;*/
+    color:white;
 }
 
 nav {
@@ -225,6 +225,12 @@ border:solid 2px #fff;
 .tip {
   margin-left: 20px;
   font-size: 14px;
+}
+
+.login{
+  font-size: 13px;
+  text-align: right;
+  text-color:white;
 }
 
 .social-coffee {
