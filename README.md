@@ -1,13 +1,52 @@
-Instahood
+Everyman
 =========
 
-Meteor application to view photos by geographic area using the Google Maps API and the Instagram API
+Homelessness - talk by https://twitter.com/docgurley
 
-Simply click on the map to see photos that have recently been taken near that location.
+@htctechforum
 
-You can also search for a location in the navigation bar to quickly see what's going on
-in any location in the world.
+bit.ly/htforum
 
-See it live at [instahood.meteor.com](http://instahood.meteor.com)
+Bad nutrition inhibits healing
+
+93+% have smartphones but wifi, no data or sms
+Major problems
+
+   * people are surviving day by day
+
+   * 
+      * No margin
+
+      * people who see these people can not communicate
+
+      * 
+         * Ambulance
+
+         * Emergency nurses
+
+         * Soup Kitchens
+
+      * Domains of Health
+
+      * 
+         * No primary point of contact
+
+         * Demographics
+
+         * no common Electonic Health Records systems
+
+         * Mental health info is siloed
+
+         * drug abuse info is siloed
+
+      * 3 solutions to homelessness
+
+      * 
+         * a home
+
+         * connection to non-homeless person
+
+         * coherent care plan
+
 
 Enjoy!
