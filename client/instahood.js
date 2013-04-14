@@ -79,8 +79,12 @@ Template.settings.events({
         map.setZoom(15);
       });
     }
-    var placeNavMarker=function (latLng) {
-      var image = "lodging.png";
+    var placeNavMarker=function (latLng,start) {
+      if(typeof start == 'undefined')
+        var image = "lodging.png";
+      else
+      // dont show this marker for the geocoded location
+        var image = "http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png";
       // this map is not always there>>>?
       var blueIcon = new google.maps.Marker({
           position: latLng,
@@ -152,20 +156,9 @@ Deps.autorun(function (c) {
         results = results[0];
         if(status == google.maps.GeocoderStatus.OK){
         // try to avoid recreating map.. but only function that seems to work for now...
-            console.log('ok');
-            console.log(results.geometry);
-            console.log(results.geometry.location.jb);
-            // store the results.geometry.location to the db
-            
-//           record.x = results.geometry.location.jb;
-//            record.y = results.geometry.location.kb;
-            record.loc = [record.x,record.y];
             clinics.insert(record);
             placeNavMarker(results.geometry.location);
-            console.log(map);
             createMap(results.geometry.location);
-
-            // this just doesn't want to place...
             console.log(results.geometry.location.kb);
 
         }else{
@@ -218,7 +211,8 @@ Deps.autorun(function (c) {
       var navLatLng = newLatLng(success);
       // annoying...
       createMap(navLatLng);
-      placeNavMarker(navLatLng);
+      // send it true option to use different marker
+      placeNavMarker(navLatLng,true);
       lookForMarkers();
   }
 
