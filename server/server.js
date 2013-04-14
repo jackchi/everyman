@@ -25,10 +25,14 @@ if (Meteor.isServer) {
  });
  
    Meteor.methods({
-    findMarker : function(box){
-         var theCenter = [box,10];
-         // just NOT working... ???
-        return clinics.find({ loc : { "$geoWithin" : { "$center" : theCenter }}});
+    findMarker : function(x,y){
+        console.log(x);
+        console.log(y);
+         var theCenter = [[x,y],.1];
+         // returns everything
+         var r = clinics.find({ loc : { "$within" : { "$center" : theCenter }}}).fetch();
+         console.log(r.length);
+        return r;
     }
   });
 }
