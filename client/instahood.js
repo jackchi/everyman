@@ -80,9 +80,13 @@ Template.settings.events({
     var placeNavMarker=function (latLng,start) {
       if(typeof start == 'undefined')
         var image = "lodging.png";
-      else
+      else{
       // dont show this marker for the geocoded location
         var image = "http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png";
+        
+          //Meteor.subscribe("markers", Session.get("searchQuery"));
+        
+        }
       // this map is not always there>>>?
       var blueIcon = new google.maps.Marker({
           position: latLng,
@@ -95,7 +99,7 @@ Template.settings.events({
   function errorFunction(success) {
     // alert("You've disabled your geolocation... So here are some pretty pictures of the Golden Gate bridge... You can always click around on the map or use the search to see more photos");
     
-    console.log('error');
+    //console.log('error');
     var latlng = new google.maps.LatLng(37.808631, -122.474470);
     createMap(latlng);
     placeNavMarker(navLatLng);
@@ -103,10 +107,28 @@ Template.settings.events({
   }
 
 
- function lookForMarkers(){
- console.log('ooking for markers');
+ function lookForMarkers(theBox){
+    console.log(theBox);
+//    if(typeof theBox != 'undefined'){
+  //        console.log('looking for specific markers');
+     //  var c= clinics.find({ loc : { $within : { "$box" : theBox }}});
+    //   console.log(c);
+ 
+//    }else{
+       console.log('looking for ALL markers');
+       // c is undefined??
+       // supports callback??
+       var c = Meteor.call("findMarker",theBox,function(err,data){
+       console.log(err);
+        console.log(data);
+        // server side.. great...
+       });
+        
+       
        var c = clinics.find({}, {fields: {_id: 1}}).fetch();
-       console.log(c);
+//       }
+    
+       //console.log(c);
         c.filter(function (arr){
         // make new nat lav
             console.log(arr['loc']);
@@ -163,7 +185,8 @@ Deps.autorun(function (c) {
            // placeNavMarker(results.geometry.location);
            // createMap(results.geometry.location);
             console.log(results.geometry.location.kb);
-                 lookForMarkers();
+            // wants a box.. aghhhh
+            lookForMarkers([results.geometry.location.jb,results.geometry.location.kb]);
 
 
         }else{
@@ -221,8 +244,14 @@ Deps.autorun(function (c) {
       createMap(navLatLng);
       // send it true option to use different marker
       placeNavMarker(navLatLng,true);
+      console.log(navLatLng);
+      // set 
+      // pass in x,y?
       // pass this navLatLng and then perform a geomongo lookup
-      lookForMarkers();
+     //  console.log('subscribing');
+       // Meteor.subscribe("markers", [navLatLng.jb,navLatLng.kb]);
+
+      lookForMarkers([navLatLng.jb,navLatLng.kb]);
   }
 
     $('div#social').hide();

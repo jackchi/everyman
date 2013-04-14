@@ -18,5 +18,17 @@ if (Meteor.isServer) {
       for (var i = 0; i < names.length; i++)
         Org.insert({name: names[i], score: Math.floor(Random.fraction()*10)*5});
     }
+ 
+
+
+
+ });
+ 
+   Meteor.methods({
+    findMarker : function(box){
+         var theCenter = [box,10];
+         // just NOT working... ???
+        return clinics.find({ loc : { "$geoWithin" : { "$center" : theCenter }}});
+    }
   });
 }
