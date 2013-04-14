@@ -7,11 +7,42 @@ Meteor.startup(function(){
 
   Session.set('photoset', '');
   Session.set('zoomed', '');
-  getTwitter();
 
+});
+
+Template.content.rendered = function(){
+  getTwitter();
   var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|iemobile|BlackBerry)/);
   console.log(isMobile);
 
+    var createMap=function (latLng) {
+      var mapOptions = {
+        streetViewControl: false,
+        scrollwheel: false,
+        zoom: 15,
+        center: latLng,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    };
+    var addAutocomplete=function () {
+      var input = document.getElementById('searchTextField');
+      autocomplete = new google.maps.places.Autocomplete(input);
+      google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        var place = autocomplete.getPlace();
+        placeClickMarker(place.geometry.location);
+        map.setCenter(place.geometry.location);
+        map.setZoom(15);
+      });
+    }
+    var placeNavMarker=function (latLng) {
+      var image = "http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png";
+      var blueIcon = new google.maps.Marker({
+          position: latLng,
+          map: map,
+          icon: image
+      });
+    }
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
   }
@@ -33,8 +64,9 @@ Meteor.startup(function(){
     placeNavMarker(navLatLng);
     addAutocomplete();
   }
-
-});
+    $('div#social').hide();
+    $('div#clinic_add').hide();
+}
 
 //GOOGLE MAPS HELPERS
 
@@ -42,36 +74,6 @@ function newLatLng(success) {
    return new google.maps.LatLng(success.coords.latitude, success.coords.longitude);
 }
 
-function createMap(latLng) {
-  var mapOptions = {
-    streetViewControl: false,
-    scrollwheel: false,
-    zoom: 15,
-    center: latLng,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-  map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-}
-
-function addAutocomplete() {
-  var input = document.getElementById('searchTextField');
-  autocomplete = new google.maps.places.Autocomplete(input);
-  google.maps.event.addListener(autocomplete, 'place_changed', function() {
-    var place = autocomplete.getPlace();
-    placeClickMarker(place.geometry.location);
-    map.setCenter(place.geometry.location);
-    map.setZoom(15);
-  });
-}
-
-function placeNavMarker(latLng) {
-  var image = "http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png";
-  var blueIcon = new google.maps.Marker({
-      position: latLng,
-      map: map,
-      icon: image
-  });
-}
 //GENERAL HELPERS
 var getTwitter = function() {
   !function(d,s,id){
@@ -84,4 +86,3 @@ var getTwitter = function() {
   }(document,"script","twitter-wjs");
 }
 
-$('div#social').hide()
