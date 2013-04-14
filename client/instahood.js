@@ -1,4 +1,3 @@
-var hi = 'hi';
 var markersArray = [];
 var instaArray = [];
 
@@ -7,8 +6,9 @@ Meteor.startup(function(){
   Session.set('zoomed', '');
   getTwitter();
 
-  var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/);
+  var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|iemobile|BlackBerry)/);
   console.log(isMobile);
+
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
   }
