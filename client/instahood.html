@@ -12,20 +12,18 @@
 
 <template name="nav">
     <nav>
-        <span>Man in the Mirror</span>
-        <input id="searchTextField" type="text" size="60">
-        
-            <span class="tip">Click on the map or use the search
-            </span>
-            <span class="login">
-                {{loginButtons align="right"}} 
-            </span>
-            <div id="social">
-                <a href="https://twitter.com/share" class="twitter-share-button" data-via="peacemigrator" data-size="large" data-hashtags="htforum" data-text="@healthtechforum Help the Homeless">Tweet</a>
-            </div>
-            <input class="clinicAddShow" type="button" value="Add Clinic" onClick="$('div#clinic_add').show();$('input.clinicAddShow').hide()">
-            {{> add_clinic}}
-        
+        <div id="social">
+            <a href="https://twitter.com/share" class="twitter-share-button" data-via="peacemigrator" data-size="large" data-hashtags="htforum" data-text="@healthtechforum Help the Homeless">Tweet</a>
+        </div><span class="login">
+        <a href="#" class="clinicAddShow" type="button" onClick="$('div#clinic_add').show();$('div#user_settings').hide();">Add Clinic</a>
+       <a href="#" class="settingsShow" type="button" onClick="$('div#clinic_add').hide();$('div#user_settings').show();">Settings</a>
+       </span>
+          <span class="login">
+            {{loginButtons align="right"}} 
+        </span>
+        {{> add_clinic}}
+        {{> settings}}
+     
     </nav>
 </template>
 
@@ -35,16 +33,23 @@
     </div>
 </template>
 
-
-
 <template name="map">
   <div id="map_canvas"></div>
 </template>
 
 <template name="settings">
-  <div id="cell_number">
-    
+<div id="user_settings">
+  <div id="phone_number">
+     <fieldset><input type="text"   placeholder="Phone Number" class="phone_number">
+     <input type="button" class="update_phone" value="Update"></fieldset>
   </div>
+  
+  <div id="email">
+     <input type="text"   placeholder="email" class="email">
+     <input type="button" class="update_email" value="Update">
+  </div>
+  <a href="#" onClick ="$('div#user_settings').hide();$('input.settingsShow').show();">Hide</a>
+</div>
 
 </template>
 
