@@ -3,9 +3,7 @@ Meteor.startup(function(){
   clinics = new Meteor.Collection("clinics");
   users = new Meteor.Collection("user");
   geocoder = new google.maps.Geocoder();
-  Locations = new Meteor.Collection("locations");
-     
-           var mapOptions = {
+  var mapOptions = {
         streetViewControl: false,
         scrollwheel: false,
         zoom: 15,

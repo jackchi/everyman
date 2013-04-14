@@ -1,6 +1,8 @@
 if (Meteor.isServer) {
   self= this;
   clinics = new Meteor.Collection("clinics");
+  clinics._ensureIndex({ loc : "2d" });
+
   users = new Meteor.Collection("user");
   Meteor.startup(function () {
     
