@@ -9,7 +9,7 @@ html, body {
 }
 
 nav {
-    height: 40px;
+    height: 90px;
     font-size: 25px;
     top: 0;
     left: 0;
@@ -89,7 +89,7 @@ border:solid 2px #fff;
   top: 0;
   bottom: 0;
   overflow: hidden;
-  margin-top:40px;
+  margin-top:90px;
 }
 
 #searchTextField {

@@ -1,6 +1,6 @@
 <head>
     <title>HTF</title>
-    <script src='https://cdn.firebase.com/v0/firebase.js'></script>
+    <script src="https://cdn.firebase.com/v0/firebase.js"></script>
      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAbZd3kjFpBpC-23bTNITmYPD-HW2CetIQ&sensor=true&libraries=places"></script>
     
 </head>
@@ -23,6 +23,7 @@
             <div id="social">
                 <a href="https://twitter.com/share" class="twitter-share-button" data-via="peacemigrator" data-size="large" data-hashtags="htforum" data-text="@healthtechforum Help the Homeless">Tweet</a>
             </div>
+            {{> add_clinic}}
         
     </nav>
 </template>
@@ -37,4 +38,22 @@
 
 <template name="map">
   <div id="map_canvas"></div>
+</template>
+
+<template name="settings">
+  <div id="cell_number">
+    
+  </div>
+
+</template>
+
+<template name="add_clinic">
+    <div id="clinic_add" style="d">
+        <input type="text"   placeholder="Clinic Name" class="clinic_name">
+        <input type="text"   placeholder="Street Address" class="clinic_address">
+        <input type="text"   placeholder="Street City" class="clinic_city">
+        <input type="text"   placeholder="Street State" class="clinic_state">
+        <input type="text"   placeholder="Street Zip" class="clinic_zip">
+        <input type="button" class="add_clinic" value="enter">
+    </div>
 </template>
