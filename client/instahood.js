@@ -4,7 +4,7 @@ Meteor.startup(function(){
   users = new Meteor.Collection("user");
  geocoder = new google.maps.Geocoder();
  Locations = new Meteor.Collection("locations");
-     
+
   function geoCode(address){
         geocoder.geocode({'address':address},function(results,status){
         console.log(results);
@@ -93,12 +93,18 @@ Deps.autorun(function (c) {
         results = results[0];
         if(status == google.maps.GeocoderStatus.OK){
         // try to avoid recreating map.. but only function that seems to work for now...
-              createMap(results.geometry.location);
             console.log('ok');
             console.log(results.geometry);
             console.log(results.geometry.location.jb);
+            // store the results.geometry.location to the db
             
+            record.x = results.geometry.location.jb;
+            record.y = results.geometry.location.kb;
+
+            clinics.insert(record);
             placeNavMarker(results.geometry.location);
+            createMap(results.geometry.location);
+
             // this just doesn't want to place...
             console.log(results.geometry.location.kb);
 
@@ -114,7 +120,7 @@ Deps.autorun(function (c) {
             have secure access
             
         */
-        clinics.insert(record);
+        
         // From here let server build the marker and update client.
         $('#clinic_add').hide();
         // show the button to add another clinic
@@ -130,8 +136,37 @@ Deps.autorun(function (c) {
         
         
    }else{
+    // check to see if any new markers exist and put them on the screen somehow? without erasing everything...
+      var c = clinics.find({},{});
+      
+      
+      console.log(typeof c);
+      console.log(Object.keys(c));
+      console.log(c.collection.docs);
+      // gotta be a better way
+      var markers = []
+      for(key in c.collection.docs){
+        var val = c.collection.docs[key];
+        console.log(val);
+        markers.push[[val.x,val.y]];
+        
+      }
+      console.log('markers to show');
+      console.log(markers);
+      
+           var mapOptions = {
+        streetViewControl: false,
+        scrollwheel: false,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+      // add different markers now?
+      
+//      placeNavMarker(results.geometry.location);
     // we're missing some fields.. ask for them.
    }
+   
    
   });
   var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|iemobile|BlackBerry)/);
@@ -184,7 +219,7 @@ Deps.autorun(function (c) {
 
   function successFunction(success) {
       var navLatLng = newLatLng(success);
-      
+      // annoying...
       createMap(navLatLng);
 
       placeNavMarker(navLatLng);
