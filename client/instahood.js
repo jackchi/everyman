@@ -113,6 +113,14 @@ Deps.autorun(function (c) {
     }
    });
    
+     var c = clinics.find({}, {fields: {_id: 1}}).fetch();
+        c.filter(function (arr){
+        // make new nat lav
+            var co = new google.maps.LatLng(arr.x, arr.y);
+            placeNavMarker(co);
+
+        });
+   
    if(filter_var == true){
     // then insert a record
     /*
@@ -201,13 +209,7 @@ Deps.autorun(function (c) {
       // weeirrrddd bug
       // https://github.com/meteor/meteor/issues/321
       // added fetch to make it work
-        var c = clinics.find({}, {fields: {_id: 1}}).fetch();
-        c.filter(function (arr){
-        // make new nat lav
-            var co = new google.maps.LatLng(arr.x, arr.y);
-            placeNavMarker(co);
-
-        });
+      
 
       }
 
