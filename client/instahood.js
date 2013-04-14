@@ -80,7 +80,7 @@ Template.settings.events({
       });
     }
     var placeNavMarker=function (latLng) {
-      var image = "blank.png";
+      var image = "lodging.png";
       // this map is not always there>>>?
       var blueIcon = new google.maps.Marker({
           position: latLng,
