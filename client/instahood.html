@@ -23,6 +23,7 @@
             <div id="social">
                 <a href="https://twitter.com/share" class="twitter-share-button" data-via="peacemigrator" data-size="large" data-hashtags="htforum" data-text="@healthtechforum Help the Homeless">Tweet</a>
             </div>
+            <input class="clinicAddShow" type="button" value="Add Clinic" onClick="$('div#clinic_add').show();$('input.clinicAddShow').hide()">
             {{> add_clinic}}
         
     </nav>
@@ -48,7 +49,7 @@
 </template>
 
 <template name="add_clinic">
-    <div id="clinic_add" style="d">
+    <div id="clinic_add" >
         <input type="text"   placeholder="Clinic Name" class="clinic_name">
         <input type="text"   placeholder="Street Address" class="clinic_address">
         <input type="text"   placeholder="Street City" class="clinic_city">
