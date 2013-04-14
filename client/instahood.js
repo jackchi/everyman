@@ -17,7 +17,7 @@ Meteor.startup(function(){
 
 Template.add_clinic.events({
     'click input.add_clinic' : function(evt,tmpl){
-        ["clinic_name","clinic_address","clinic_city","clinic_state","clinic_zip"].filter(function(arr){
+        ["clinic_name","clinic_address"].filter(function(arr){
             Session.set(arr,tmpl.find("." + arr ).value);
         });
     }
@@ -106,7 +106,9 @@ Template.settings.events({
 
 
  function lookForMarkers(){
+ console.log('ooking for markers');
        var c = clinics.find({}, {fields: {_id: 1}}).fetch();
+       console.log(c);
         c.filter(function (arr){
         // make new nat lav
             console.log(arr['loc']);
@@ -129,7 +131,7 @@ Template.content.rendered = function(){
 Deps.autorun(function (c) {
 // this cause problems if more than one key are undefined....
   filter_var = true;
-  var fields = ["clinic_name","clinic_address","clinic_city","clinic_state","clinic_zip"]
+  var fields = ["clinic_name","clinic_address"]
   fields.filter(function(key){
   // do other filtering here too .. but probably easier in second block
     if (( Session.equals(key, undefined) || Session.equals(key, '')) && filter_var == true){
@@ -137,7 +139,6 @@ Deps.autorun(function (c) {
     }
    });
    
-     lookForMarkers();
    if(filter_var == true){
     // then insert a record
     /*
@@ -150,19 +151,26 @@ Deps.autorun(function (c) {
             geo_term += ' '+record[key];
         });
         
-        console.log('attempting to geo code' + geo_term);
+        console.log('attempting to geo code ' + geo_term);
          geocoder.geocode({'address':geo_term},function(results,status){
         console.log(results);
         results = results[0];
         if(status == google.maps.GeocoderStatus.OK){
         // try to avoid recreating map.. but only function that seems to work for now...
+        
+            console.log(record);
+            record.loc = [results.geometry.location.jb,results.geometry.location.kb];
+
             clinics.insert(record);
-            placeNavMarker(results.geometry.location);
-            createMap(results.geometry.location);
+           // placeNavMarker(results.geometry.location);
+           // createMap(results.geometry.location);
             console.log(results.geometry.location.kb);
+                 lookForMarkers();
+
 
         }else{
-            console.log('prob');
+            alert('Could not geocode location.. please check');
+            // show input fields..
         }
         });
 
@@ -185,6 +193,8 @@ Deps.autorun(function (c) {
             Session.set(key,undefined);
             Template.find('input.' + key).value = '';
         });
+        
+        
         // also set the values in the dom to nothing
         
         
@@ -213,6 +223,7 @@ Deps.autorun(function (c) {
       createMap(navLatLng);
       // send it true option to use different marker
       placeNavMarker(navLatLng,true);
+      // pass this navLatLng and then perform a geomongo lookup
       lookForMarkers();
   }
 
