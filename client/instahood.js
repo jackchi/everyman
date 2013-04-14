@@ -5,6 +5,23 @@ Meteor.startup(function(){
   clinics = new Meteor.Collection("clinics");
   users = new Meteor.Collection("user");
 
+
+/*
+
+
+    user settings:
+    
+    
+    {
+    
+        _id : <mongoid>,
+        email : <string>,
+        clinics : [ <mongoid> , <mongoid> , ..],
+        phone_number : 1291231232
+        
+    }
+
+*/
   Session.set('photoset', '');
   Session.set('zoomed', '');
 
@@ -15,6 +32,15 @@ Template.add_clinic.events({
         ["clinic_name","clinic_address","clinic_city","clinic_state","clinic_zip"].filter(function(arr){
             Session.set(arr,tmpl.find("." + arr ).value);
         });
+    }
+});
+
+Template.settings.events({
+    'click input.update_phone' : function(evt,tmpl){
+    
+    },
+    'click input.update_email' : function(evt,tmpl){
+    
     }
 });
 
@@ -52,6 +78,11 @@ Deps.autorun(function (c) {
         // show the button to add another clinic
         $('.clinicAddShow').show();
         console.log('Its all here lets make an insert. and probably hide something...');
+        
+        // remove fields from session to avoid accidental field duplication/reentry
+        fields.filter(function(key){
+            Session.set(key,undefined);
+        });
         
    }else{
     // we're missing some fields.. ask for them.
@@ -115,6 +146,8 @@ Deps.autorun(function (c) {
   }
     $('div#social').hide();
     $('div#clinic_add').hide();
+    $('div#user_settings').hide();
+
 }
 
 //GOOGLE MAPS HELPERS
