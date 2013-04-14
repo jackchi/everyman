@@ -65,6 +65,7 @@ Template.settings.events({
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
       map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+      lookForMarkers();
     };
     
     var addAutocomplete=function () {
@@ -250,7 +251,8 @@ Deps.autorun(function (c) {
       // pass this navLatLng and then perform a geomongo lookup
      //  console.log('subscribing');
        // Meteor.subscribe("markers", [navLatLng.jb,navLatLng.kb]);
-
+    // this doesnt seem to be working... hmm
+      lookForMarkers();
       lookForMarkers([navLatLng.jb,navLatLng.kb]);
   }
 
