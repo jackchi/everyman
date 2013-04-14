@@ -10,7 +10,56 @@ Meteor.startup(function(){
 
 });
 
+Template.add_clinic.events({
+    'click input.add_clinic' : function(evt,tmpl){
+        ["clinic_name","clinic_address","clinic_city","clinic_state","clinic_zip"].filter(function(arr){
+            Session.set(arr,tmpl.find("." + arr ).value);
+        });
+    }
+});
+
 Template.content.rendered = function(){
+
+Deps.autorun(function (c) {
+// this cause problems if more than one key are undefined....
+  filter_var = true;
+  var fields = ["clinic_name","clinic_address","clinic_city","clinic_state","clinic_zip"]
+  fields.filter(function(key){
+  // do other filtering here too .. but probably easier in second block
+    if ( Session.equals(key, undefined) && filter_var == true){
+     filter_var = false;
+    }
+   });
+   
+   if(filter_var == true){
+    // then insert a record
+    /*
+        Do validation here
+    */
+        var record ={};
+        fields.filter(function(key){
+            record[key] = Session.get(key);
+        });
+        /*
+        
+            ALSO STORE A USER token of some sort so they might
+            have secure access
+            
+        */
+        clinics.insert(record);
+        // From here let server build the marker and update client.
+        $('#clinic_add').hide();
+        // show the button to add another clinic
+        $('.clinicAddShow').show();
+        console.log('Its all here lets make an insert. and probably hide something...');
+        
+   }else{
+    // we're missing some fields.. ask for them.
+   }
+   
+  });
+
+
   getTwitter();
   var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|iemobile|BlackBerry)/);
   console.log(isMobile);
