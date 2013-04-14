@@ -220,6 +220,8 @@ Deps.autorun(function (c) {
     $('div#social').hide();
     $('div#clinic_add').hide();
     $('div#user_settings').hide();
+    // not sure where this one is going...
+    getTwitter();
 
 }
 
@@ -228,4 +230,15 @@ Deps.autorun(function (c) {
 
 function newLatLng(success) {
    return new google.maps.LatLng(success.coords.latitude, success.coords.longitude);
+}
+
+var getTwitter = function() {
+  !function(d,s,id){
+    var js,fjs= d.getElementsByTagName(s)[0];
+    if(!d.getElementById(id)){
+      js=d.createElement(s);js.id=id;
+      js.src="https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js,fjs);
+    }
+  }(document,"script","twitter-wjs");
 }
