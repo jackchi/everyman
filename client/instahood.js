@@ -4,7 +4,28 @@ Meteor.startup(function(){
   users = new Meteor.Collection("user");
  geocoder = new google.maps.Geocoder();
  Locations = new Meteor.Collection("locations");
+     
+  function geoCode(address){
+        geocoder.geocode({'address':address},function(results,status){
+        console.log(results);
+        results = results[0];
+        if(status == google.maps.GeocoderStatus.OK){
+        // try to avoid recreating map.. but only function that seems to work for now...
+              createMap(results.geometry.location);
+            console.log('ok');
+            console.log(results.geometry);
+            console.log(results.geometry.location.jb);
+            
+            placeNavMarker(results.geometry.location);
+            // this just doesn't want to place...
+            console.log(results.geometry.location.kb);
 
+        }else{
+            console.log('prob');
+        }
+        })
+  
+  }
 /*
 
 
@@ -60,9 +81,33 @@ Deps.autorun(function (c) {
         Do validation here
     */
         var record ={};
+        var geo_term='';
         fields.filter(function(key){
             record[key] = Session.get(key);
+            geo_term += ' '+record[key];
         });
+        
+        console.log('attempting to geo code' + geo_term);
+         geocoder.geocode({'address':geo_term},function(results,status){
+        console.log(results);
+        results = results[0];
+        if(status == google.maps.GeocoderStatus.OK){
+        // try to avoid recreating map.. but only function that seems to work for now...
+              createMap(results.geometry.location);
+            console.log('ok');
+            console.log(results.geometry);
+            console.log(results.geometry.location.jb);
+            
+            placeNavMarker(results.geometry.location);
+            // this just doesn't want to place...
+            console.log(results.geometry.location.kb);
+
+        }else{
+            console.log('prob');
+        }
+        });
+
+        
         /*
         
             ALSO STORE A USER token of some sort so they might
@@ -139,36 +184,14 @@ Deps.autorun(function (c) {
 
   function successFunction(success) {
       var navLatLng = newLatLng(success);
-      console.log(navLatLng);
+      
       createMap(navLatLng);
-      //placeNavMarker(navLatLng);
-      //addAutocomplete();
-      console.log('here');
 
-      console.log(geocoder);
+      placeNavMarker(navLatLng);
       
-      geocodeAddress({'raw_address':'18 Mission St San Francisco, CA'});
-      
-      console.log(geocoder.geocode({'address':'18 Mission St San Francisco, CA'},function(results,status){
-        console.log(results);
-        results = results[0];
-        if(status == google.maps.GeocoderStatus.OK){
-            console.log('ok');
-            console.log(results.geometry);
-            console.log(results.geometry.location.jb);
-            
-            placeNavMarker(results.geometry.location);
-            // this just doesn't want to place...
-            console.log(results.geometry.location.kb);
-
-        }else{
-            console.log('prob');
-        }
-        }));
         
       }
-      
-  
+ 
 
 
 
