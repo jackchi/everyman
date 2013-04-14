@@ -1,7 +1,10 @@
 var markersArray = [];
 var instaArray = [];
-
 Meteor.startup(function(){
+
+  clinics = new Meteor.Collection("clinics");
+  users = new Meteor.Collection("user");
+
   Session.set('photoset', '');
   Session.set('zoomed', '');
   getTwitter();
