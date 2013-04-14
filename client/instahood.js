@@ -116,20 +116,24 @@ Template.settings.events({
     //   console.log(c);
  
 //    }else{
-       console.log('looking for ALL markers');
        // c is undefined??
        // supports callback??
-       var c = Meteor.call("findMarker",theBox,function(err,data){
-       console.log(err);
-        console.log(data);
-        // server side.. great...
-       });
-        
-       
-       var c = clinics.find({}, {fields: {_id: 1}}).fetch();
+       if(typeof theBox != 'undefined'){
+               console.log('looking for specific markers');
+
+           c = Meteor.call("findMarker",theBox[0],theBox[1]);
+//           console.log(c);
+           // eventually pick out fields with mongo...
+           
+        }else{
+              console.log('looking for ALL markers');
+
+            c = clinics.find({}, {fields: {_id: 1}}).fetch();
+       }
 //       }
     
        //console.log(c);
+       if(typeof c != 'undefined')
         c.filter(function (arr){
         // make new nat lav
             console.log(arr['loc']);
@@ -252,7 +256,7 @@ Deps.autorun(function (c) {
      //  console.log('subscribing');
        // Meteor.subscribe("markers", [navLatLng.jb,navLatLng.kb]);
     // this doesnt seem to be working... hmm
-      lookForMarkers();
+      //lookForMarkers();
       lookForMarkers([navLatLng.jb,navLatLng.kb]);
   }
 
