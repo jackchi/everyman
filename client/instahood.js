@@ -1,5 +1,3 @@
-var markersArray = [];
-var instaArray = [];
 Meteor.startup(function(){
 
   clinics = new Meteor.Collection("clinics");
@@ -22,8 +20,6 @@ Meteor.startup(function(){
     }
 
 */
-  Session.set('photoset', '');
-  Session.set('zoomed', '');
 
 });
 
@@ -52,7 +48,7 @@ Deps.autorun(function (c) {
   var fields = ["clinic_name","clinic_address","clinic_city","clinic_state","clinic_zip"]
   fields.filter(function(key){
   // do other filtering here too .. but probably easier in second block
-    if ( Session.equals(key, undefined) && filter_var == true){
+    if (( Session.equals(key, undefined) || Session.equals(key, '')) && filter_var == true){
      filter_var = false;
     }
    });
@@ -89,9 +85,6 @@ Deps.autorun(function (c) {
    }
    
   });
-
-
-  getTwitter();
   var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|iemobile|BlackBerry)/);
   console.log(isMobile);
 
@@ -155,16 +148,3 @@ Deps.autorun(function (c) {
 function newLatLng(success) {
    return new google.maps.LatLng(success.coords.latitude, success.coords.longitude);
 }
-
-//GENERAL HELPERS
-var getTwitter = function() {
-  !function(d,s,id){
-    var js,fjs= d.getElementsByTagName(s)[0];
-    if(!d.getElementById(id)){
-      js=d.createElement(s);js.id=id;
-      js.src="https://platform.twitter.com/widgets.js";
-      fjs.parentNode.insertBefore(js,fjs);
-    }
-  }(document,"script","twitter-wjs");
-}
-
