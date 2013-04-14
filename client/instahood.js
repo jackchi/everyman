@@ -12,7 +12,7 @@ Meteor.startup(function(){
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
   map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-
+   
 });
 
 Template.add_clinic.events({
@@ -92,6 +92,8 @@ Template.settings.events({
 
   function errorFunction(success) {
     // alert("You've disabled your geolocation... So here are some pretty pictures of the Golden Gate bridge... You can always click around on the map or use the search to see more photos");
+    
+    console.log('error');
     var latlng = new google.maps.LatLng(37.808631, -122.474470);
     createMap(latlng);
     placeNavMarker(navLatLng);
@@ -99,7 +101,25 @@ Template.settings.events({
   }
 
 
+ function lookForMarkers(){
+       var c = clinics.find({}, {fields: {_id: 1}}).fetch();
+        c.filter(function (arr){
+        // make new nat lav
+            console.log(arr['loc']);
+            /*
+             Backwards support.. remove when releasing.. Supports the
+             appropriate way of storing lat/long for geo queries.
+            */
+            if(typeof arr['loc'] != 'undefined'){
+                var co = new google.maps.LatLng(arr['loc'][0], arr['loc'][1]);
+                placeNavMarker(co);
+            }else if(typeof arr['x'] != 'undefined' && typeof arr['y'] != 'undefined'){
+                var co = new google.maps.LatLng(arr['x'], arr['y']);
+                placeNavMarker(co);
 
+            }
+        });
+ }
 Template.content.rendered = function(){
 
 Deps.autorun(function (c) {
@@ -113,14 +133,7 @@ Deps.autorun(function (c) {
     }
    });
    
-     var c = clinics.find({}, {fields: {_id: 1}}).fetch();
-        c.filter(function (arr){
-        // make new nat lav
-            var co = new google.maps.LatLng(arr.x, arr.y);
-            placeNavMarker(co);
-
-        });
-   
+     lookForMarkers();
    if(filter_var == true){
     // then insert a record
     /*
@@ -144,9 +157,9 @@ Deps.autorun(function (c) {
             console.log(results.geometry.location.jb);
             // store the results.geometry.location to the db
             
-            record.x = results.geometry.location.jb;
-            record.y = results.geometry.location.kb;
-
+//           record.x = results.geometry.location.jb;
+//            record.y = results.geometry.location.kb;
+            record.loc = [record.x,record.y];
             clinics.insert(record);
             placeNavMarker(results.geometry.location);
             console.log(map);
@@ -206,16 +219,8 @@ Deps.autorun(function (c) {
       // annoying...
       createMap(navLatLng);
       placeNavMarker(navLatLng);
-      // weeirrrddd bug
-      // https://github.com/meteor/meteor/issues/321
-      // added fetch to make it work
-      
-
-      }
-
- // var map;
- // var locations = {};
-
+      lookForMarkers();
+  }
 
     $('div#social').hide();
     $('div#clinic_add').hide();
