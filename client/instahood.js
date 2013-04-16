@@ -121,9 +121,7 @@ Template.add_marker.events({
 
 Template.map.events({
     'dblclick div#map_canvas' : function(evt,tmpl){
-        console.log(evt);
-        console.log(map.center);
-                placeNavMarker(map.center);
+        placeNavMarker(map.center,undefined,function(){alert("Did you want to place a marker here?")});
 
     }
 
@@ -162,13 +160,7 @@ Template.content.rendered = function(){
   // allow for editing anyway?
     alert('no geo location?');
   }
-  GEvent.addListener(gmap, "click", function(overlay, latlng) {
-var lat = latlng.lat();
-var lon = latlng.lng();
-console.log(latLng);
-//var point = new GLatLng(lat, lon);
-console.log(point)
-});
+
   
     // if no map can be created then we are working offline...
     $('div#social').hide();
