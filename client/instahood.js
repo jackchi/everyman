@@ -60,6 +60,7 @@ Template.nav.marker_index = function(evt,tmpl){
     return markers.find({},{});
 }
 
+
 Template.add_marker.events({
     'click input.add_marker' : function(evt,tmpl){
     /*
@@ -117,6 +118,19 @@ Template.add_marker.events({
     }
 });
 
+
+Template.map.events({
+    'dblclick div#map_canvas' : function(evt,tmpl){
+        console.log(evt);
+        console.log(map.center);
+                placeNavMarker(map.center);
+
+    }
+
+});
+
+
+
 Template.markers.events({
     'click input.del_marker' : function(evt,tmpl){
         markers.remove({_id:tmpl.data._id});
@@ -148,6 +162,14 @@ Template.content.rendered = function(){
   // allow for editing anyway?
     alert('no geo location?');
   }
+  GEvent.addListener(gmap, "click", function(overlay, latlng) {
+var lat = latlng.lat();
+var lon = latlng.lng();
+console.log(latLng);
+//var point = new GLatLng(lat, lon);
+console.log(point)
+});
+  
     // if no map can be created then we are working offline...
     $('div#social').hide();
     $('div#marker_add').hide();
