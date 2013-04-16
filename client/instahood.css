@@ -1,3 +1,5 @@
+/* @override http://localhost:3000/client/instahood.css?a5e52543b9bd3e698feb36445f69cec560c81d87 */
+
 html, body { 
     height: 100%;
     margin: 0;
@@ -9,11 +11,12 @@ html, body {
 }
 
 nav {
-    height: 90px;
+    height: 100%;
     font-size: 25px;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 25%;
+    min-width: 6em;
     background-color: rgba(51,51,51,0.7);
     z-index: 1;
     text-shadow: 0 -1px 0 #bbb;
@@ -21,6 +24,28 @@ nav {
     font-family: Helvetica Neue, Helvetica, arial;
     line-height: 25px;
     padding-left: 25px;
+}
+
+input{
+	margin-top: 1em;
+	width: 85%;
+}
+
+
+input.marker_x,input.marker_y{
+	width: 2em;
+	
+}
+input.edit_marker{
+float: right;
+margin-right: 1.5em;
+margin-top: .1em;
+}
+
+#user_settings a {
+margin-right: 1em;
+float: right;
+color: white;
 }
 
 #photos-container {
@@ -88,12 +113,22 @@ border:solid 2px #fff;
 #map_canvas { 
   height: 100%;
   position: absolute;
-  left: 0;
+  left: 28%;
   right: 0;
   top: 0;
   bottom: 0;
   overflow: hidden;
-  margin-top:90px;
+}
+
+a.markerAddShow,a.settingsShow,#login-sign-in-link,a.markerEditShow{
+width: 90%;
+text-align: left;
+    float: left;clear: both;
+	line-height:3em;
+	padding-right: 1em;
+	display: block;
+	color: white;
+	font-size: 1.7em;
 }
 
 #searchTextField {

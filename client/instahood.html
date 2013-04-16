@@ -1,7 +1,8 @@
 <head>
     <title>HTF</title>
-    <script src="https://cdn.firebase.com/v0/firebase.js"></script>
-     <script src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=places"></script>
+    <!--
+    <script src="https://cdn.firebase.com/v0/firebase.js"></script>-->
+     <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
     
 </head>
 
@@ -11,18 +12,26 @@
 </body>
 
 <template name="nav">
-    <nav><span>Man in the Mirror</span>
+    <nav>
         <div id="social">
             <a href="https://twitter.com/share" class="twitter-share-button" data-via="peacemigrator" data-size="large" data-hashtags="htforum" data-text="@healthtechforum Help the Homeless">Tweet</a>
-        </div><span class="login">
-        <a href="#" class="clinicAddShow" type="button" onClick="$('div#clinic_add').show();$('div#user_settings').hide();">Add Clinic</a>
-       <a href="#" class="settingsShow" type="button" onClick="$('div#clinic_add').hide();$('div#user_settings').show();">Settings</a>
+        </div>
+        <span class="login">{{loginButtons align="right"}}
+            <a href="#" class="markerEditShow" type="button" onClick="$('div#marker_add').hide();$('div#user_settings').hide();$('div#marker_edit').show();">Tag Current location/time</a>
+        
+            <a href="#" class="settingsShow" type="button" onClick="$('div#marker_add').hide();$('div#marker_edit').hide();$('div#user_settings').show();">Settings</a>        {{> settings}}
+            <a href="#" class="markerAddShow" type="button" onClick="$('div#marker_add').show();$('div#user_settings').hide();$('div#marker_edit').hide();">Add Point</a>
+            {{> add_marker}}
+            <a href="#" class="markerEditShow" type="button" onClick="$('div#marker_add').hide();$('div#user_settings').hide();$('div#the_markers').show();">Points</a>
+            {{> edit_marker}}
+        
+
+       <div id="the_markers">
+       {{#each marker_index}}
+        {{>markers}}
+       {{/each}}
+       </div>
        </span>
-          <span class="login">
-            {{loginButtons align="right"}} 
-        </span>
-        {{> add_clinic}}
-        {{> settings}}
     </nav>
 </template>
 
@@ -30,7 +39,6 @@
     <div id="container">
        {{> map}}
     </div>
-   
 </template>
 
 <template name="map">
@@ -53,10 +61,37 @@
 
 </template>
 
-<template name="add_clinic">
-    <div id="clinic_add" >
-        <input type="text"   placeholder="Clinic Name" class="clinic_name">
-        <input type="text"   placeholder="Street Address" class="clinic_address">
-        <input type="button" class="add_clinic" value="enter">
+<template name="add_marker">
+    <div id="marker_add" >
+        <select class="marker_type">
+            <option>Hospital</option>
+            <option>Care Provider</option>
+            <option>Shelter</option>
+            <option>Other</option>
+        </select>
+        <input type="text"   placeholder="marker Name" class="marker_name">
+        <input type="text"   placeholder="Street Address" class="marker_address">
+        
+        <select class="marker_visiblity">
+            <option>Private</option>
+            <option>Everywhere Permitted</option>
+        </select>
+        
+        <input type="button" class="add_marker" value="enter">
     </div>
+</template>
+
+<template name="edit_marker">
+    <div id ="marker_edit">
+        <input type="text"   placeholder="marker Name" class="marker_name" value="{{marker_name}}">
+        <input type="text"   placeholder="Street Address" class="marker_address" value="{{marker_address}}">
+        <input type="text"   placeholder="X" class="marker_x" value="{{loc.[0]}}">
+        <input type="text"   placeholder="Y" class="marker_y" value="{{loc.[1]}}">
+        <input type="button" class="edit_marker" value="Update">
+    </div>
+</template>
+
+<template name="markers">
+<!-- clinic name to support legacy -->
+<input type="button" class="del_marker" value="x"><span class="marker"><a href="#" class="edit_marker">{{name}}</a></span>
 </template>
