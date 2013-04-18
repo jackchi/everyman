@@ -56,9 +56,6 @@ Meteor.startup(function(){
       geocoder = new google.maps.Geocoder();
 });
 
-Template.nav.marker_index = function(evt,tmpl){
-    return markers.find({},{});
-}
 
 
 Template.add_marker.events({
@@ -148,6 +145,21 @@ Template.markers.events({
     }
 });
 
+Template.loggedInMenu.rendered = function(){
+                $('div#social').hide();
+                $('div#marker_add').hide();
+                $('div#user_settings').hide();
+                $('div#the_markers').hide();
+                $('div#marker_edit').hide();
+
+
+}
+
+
+Template.loggedInMenu.marker_index = function(evt,tmpl){
+// get User. something to filter this find
+    return markers.find({},{});
+}
 
 Template.content.rendered = function(){
 // IF MOBILE .. attempt to detect screen orientation/load different css to do horizontal nav
@@ -160,14 +172,7 @@ Template.content.rendered = function(){
   // allow for editing anyway?
     alert('no geo location?');
   }
-
-  
-    // if no map can be created then we are working offline...
-    $('div#social').hide();
-    $('div#marker_add').hide();
-    $('div#user_settings').hide();
-    $('div#the_markers').hide();
-    $('div#marker_edit').hide();
+  // if no map can be created then we are working offline...
 }
 
 /* TODO
@@ -214,6 +219,7 @@ function lookForMarkers(theBox){
 function createMap (latLng) {
     console.log('making map');
     var mapOptions = {
+        disableDoubleClick: true,
         streetViewControl: false,
         scrollwheel: false,
         zoom: 15,
