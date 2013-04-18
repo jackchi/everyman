@@ -1,3 +1,5 @@
+/* @override http://localhost:3000/client/instahood.css?d2d51048e0f07c261748f3fdd4b1d44924a9f090 */
+
 html, body {
     height: 100%;
     margin: 0;
@@ -15,6 +17,7 @@ p {
 
 nav {
     height: 100%;
+    overflow:scroll;
     font-size: 25px;
     top: 0;
     left: 0;
@@ -27,6 +30,9 @@ nav {
     font-family: Helvetica Neue, Helvetica, arial;
     line-height: 25px;
     padding-left: 25px;
+}
+nav h3{
+	width: 90%;
 }
 
 input{
@@ -75,7 +81,6 @@ float:left;
 }
 
 nav a{
-width: 90%;
 text-align: left;
     float: left;clear: both;
 	line-height:3em;
@@ -90,10 +95,10 @@ text-align: left;
 }
 
 #login-dropdown-list {
-	margin-top: 1em;
 }
 
-nav small{clear:both;}
+nav small{width: 95%;float: left;
+}
 
 #searchTextField {
   margin: 5px 0 5px 50px;
