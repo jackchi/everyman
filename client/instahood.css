@@ -1,3 +1,5 @@
+/* @override http://localhost:3000/client/instahood.css?4d3812fa6a1c3c0dd6bf85f757f0f71c85add9aa */
+
 /* @override http://localhost:3000/client/instahood.css?a5e52543b9bd3e698feb36445f69cec560c81d87 */
 
 html, body { 
@@ -128,7 +130,7 @@ text-align: left;
 	padding-right: 1em;
 	display: block;
 	color: white;
-	font-size: 1.7em;
+	font-size: .8em;
 }
 
 #searchTextField {

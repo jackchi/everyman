@@ -13,25 +13,16 @@
 
 <template name="nav">
     <nav>
-        <div id="social">
-            <a href="https://twitter.com/share" class="twitter-share-button" data-via="peacemigrator" data-size="large" data-hashtags="htforum" data-text="@healthtechforum Help the Homeless">Tweet</a>
-        </div>
-        <span class="login">{{loginButtons align="right"}}
-            <a href="#" class="markerEditShow" type="button" onClick="$('div#marker_add').hide();$('div#user_settings').hide();$('div#marker_edit').show();">Tag Current location/time</a>
-        
-            <a href="#" class="settingsShow" type="button" onClick="$('div#marker_add').hide();$('div#marker_edit').hide();$('div#user_settings').show();">Settings</a>        {{> settings}}
-            <a href="#" class="markerAddShow" type="button" onClick="$('div#marker_add').show();$('div#user_settings').hide();$('div#marker_edit').hide();">Add Point</a>
-            {{> add_marker}}
-            <a href="#" class="markerEditShow" type="button" onClick="$('div#marker_add').hide();$('div#user_settings').hide();$('div#the_markers').show();">Points</a>
-            {{> edit_marker}}
-        
-
-       <div id="the_markers">
-       {{#each marker_index}}
-        {{>markers}}
-       {{/each}}
-       </div>
+        <span class="login">
+            {{loginButtons align="right"}}
        </span>
+       {{#if currentUser}}
+            {{>loggedInMenu}}
+        {{else}}
+         <h4>Please log in to register new points</h4>
+       {{/if}}
+
+       
     </nav>
 </template>
 
@@ -39,6 +30,25 @@
     <div id="container">
        {{> map}}
     </div>
+</template>
+
+<template name="loggedInMenu">
+    <small><a href="#" class="settingsShow">Double click to add a marker</p></small>
+
+    <a href="#" class="markerEditShow" type="button" onClick="$('div#marker_add').hide();$('div#user_settings').hide();$('div#marker_edit').show();">Tag Current location/time</a>
+
+    <a href="#" class="settingsShow" type="button" onClick="$('div#marker_add').hide();$('div#marker_edit').hide();$('div#user_settings').show();">Settings</a>        {{> settings}}
+    <a href="#" class="markerAddShow" type="button" onClick="$('div#marker_add').show();$('div#user_settings').hide();$('div#marker_edit').hide();">Add Point</a>
+    {{> add_marker}}
+    <a href="#" class="markerEditShow" type="button" onClick="$('div#marker_add').hide();$('div#user_settings').hide();$('div#the_markers').show();">Points</a>
+    {{> edit_marker}}
+    <div id="the_markers">
+       {{#each marker_index}}
+        {{>markers}}
+       {{/each}}
+    </div>
+
+
 </template>
 
 <template name="map">
