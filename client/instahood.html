@@ -16,10 +16,30 @@
         <span class="login">
             {{loginButtons align="right"}}
        </span>
+        <h3>Carelink.me - DEMO</h3>
+
        {{#if currentUser}}
             {{>loggedInMenu}}
         {{else}}
-         <h4>Please log in to register new points</h4>
+         <small>CareLink.me is a geo-location communication platform that connects over-utilizers of ER / ambulance services with their primary case managers.
+         
+        <p>This project won 2nd Place in the Health Technology Forum Hackathon in San Francisco, CA on April 13-14, 2013. Check out the pitch deck if you’d like to read more.
+CareLink.me was built on iOS, Meteor, and Firebase.</p>
+        
+         <p>This demo allows for geocoding a and adding a location (when logged in), determining your current location, and viewing existing markers without logging in.</p>
+        <strong>Team</strong>
+            
+         <ul>
+            <li>Jackie Chia-Hsun Lee, Engineer</li>
+            <li>Ronaldo Barbachano, Engineer</li>
+            <li>Jack Chi, Engineer</li>
+            <li>Nathan Schuett, Product Manager</li>
+            <li>Hillary Lin, Medical Student</li>
+            <li>J.R. Fieser, Physician</li>
+            <li>Zak Zibrat, Healthcare Informatics</li>
+        </ul>
+
+         </small>
        {{/if}}
 
        
