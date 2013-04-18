@@ -1,9 +1,7 @@
-	
-
 html, body {
     height: 100%;
     margin: 0;
-    padding: 0; 
+    padding: 0;
     font-size: 15px;
     font-family: "Arial";
     background: url('/background.png');
@@ -29,7 +27,7 @@ nav {
     color: #eee;
     font-family: Helvetica Neue, Helvetica, arial;
     line-height: 25px;
-    padding-left: 25px;
+    padding-left: 5px;
 }
 
 #login-buttons-facebook,div.or {
@@ -37,11 +35,12 @@ nav {
 }
 
 nav h3{
-	width: 90%;
+padding-top: 1em;
+width: auto;float: left;
 }
 
 input{
-	margin-top: 1em;
+	margin: 1em 0;
 	width: 85%;
 }
 
@@ -78,7 +77,7 @@ float:left;
 #map_canvas { 
   height: 100%;
   position: absolute;
-  left: 28%;
+  left: 26%;
   right: 0;
   top: 0;
   bottom: 0;
@@ -86,13 +85,10 @@ float:left;
 }
 
 nav a{
-text-align: left;
-    float: left;clear: both;
-	line-height:3em;
-	padding-right: 1em;
-	display: block;
-	color: white;
-	font-size: .8em;
+}
+span.marker{
+	width: 100%;float: left;height: 2.2em;
+	text-align: left;font-size: .8em;margin: 0;padding: 0;
 }
 
 #login-name-link {
@@ -104,7 +100,7 @@ margin-top: 3em;
 margin-right: 1.35em;
 }
 
-nav small{width: 98%;float: left;
+nav small{width: 98%;float: left;margin-top: 1em;
 	font-size: .70em;
 }
 
@@ -169,3 +165,37 @@ nav li{
   float: right;
   width: 100%;
 }
+
+div#main_menu {
+		float: left;
+		padding: .15em;
+}
+
+#main_menu div{
+text-align: center;
+	border-radius: 10px;
+	border-top-left-radius: 0px;
+	padding: .15em;
+	float: left;clear: both;
+	width: 99%;
+	background-color:white;
+}
+/* for geolocate */
+
+select{
+ width: 90%;
+	
+}
+
+#main_menu img,a.geolocate img{background-color: white;width: 1.5em;height: 1.5em;border-radius: 5px;border-bottom-right-radius:0px; border-bottom-left-radius: 0px;
+	margin-right: .7em;
+	float: left;clear: none;padding: .2em .4em;
+}
+
+a.geolocate img{
+background-color: green;
+float: right;
+margin: 1em 0 0 1.5em;
+	border-radius: 10px;	
+}
+
