@@ -33,21 +33,24 @@
 </template>
 
 <template name="loggedInMenu">
-    <small><a href="#" class="settingsShow">Double click to add a marker</p></small>
+    <div id="main_menu">
+        <a href="#" class="agencyAdd" type="button">Create An Agency</a>
+        {{>newAgency}}
+        <a href="#" class="settingsShow" type="button">Settings</a>
+        {{> settings}}
+        <a href="#" class="markerAddShow" type="button">Add Point</a>
+        {{> add_marker}}
+        <a href="#" class="showMarkers" type="button">Points</a>
+        
+        <div id="the_markers">
+           {{#each marker_index}}
+            {{>markers}}
+           {{/each}}
+        </div>
+        
+        <small>Double click to add a marker</small>
 
-    <a href="#" class="markerEditShow" type="button" onClick="$('div#marker_add').hide();$('div#user_settings').hide();$('div#marker_edit').show();">Tag Current location/time</a>
-
-    <a href="#" class="settingsShow" type="button" onClick="$('div#marker_add').hide();$('div#marker_edit').hide();$('div#user_settings').show();">Settings</a>        {{> settings}}
-    <a href="#" class="markerAddShow" type="button" onClick="$('div#marker_add').show();$('div#user_settings').hide();$('div#marker_edit').hide();">Add Point</a>
-    {{> add_marker}}
-    <a href="#" class="markerEditShow" type="button" onClick="$('div#marker_add').hide();$('div#user_settings').hide();$('div#the_markers').show();">Points</a>
-    {{> edit_marker}}
-    <div id="the_markers">
-       {{#each marker_index}}
-        {{>markers}}
-       {{/each}}
     </div>
-
 
 </template>
 
@@ -58,17 +61,33 @@
 <template name="settings">
 <div id="user_settings">
   <div id="phone_number">
-     <fieldset><input type="text"   placeholder="Phone Number" class="phone_number">
+     <fieldset><input type="text"   placeholder="Phone Number" class="phone_number" {{#if hasPhone}} value="{{phone_number}}"{{/if}}>
      <input type="button" class="update_phone" value="Update"></fieldset>
   </div>
-  
   <div id="email">
      <input type="text"   placeholder="email" class="email">
      <input type="button" class="update_email" value="Update">
   </div>
-  <a href="#" onClick ="$('div#user_settings').hide();$('input.settingsShow').show();">Hide</a>
+  <div id="agency">
+    
+    <input type="text" placeholder="Agency Code" class="agency_code" {{#if hasAgency}} value="{{agency_code}}"{{/if}}>
+    <input type="button" class="update_agency" value="Update">
+  </div>
 </div>
 
+</template>
+
+<template name="newAgency">
+    <div id="agency_new">
+        <input type="text" placeholder="Name of Agency" class="agency" />
+        <select class="type">
+            <option>Hospital</option>
+            <option>Clinic</option>
+            <option>Gov. Related</option>
+            <option>Other</option>
+        </select>
+        <input type="administrators" placeholder="List of administrator email addresses comma seperated" size="400" />
+    </div>
 </template>
 
 <template name="add_marker">
@@ -102,6 +121,6 @@
 </template>
 
 <template name="markers">
-<!-- clinic name to support legacy -->
-<input type="button" class="del_marker" value="x"><span class="marker"><a href="#" class="edit_marker">{{name}}</a></span>
+<!-- clinic name to support legacy --><span class="marker"><a href="#" class="edit_marker">
+<input type="button" class="del_marker" value="x"> {{name}}</a></span>
 </template>

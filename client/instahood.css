@@ -1,9 +1,8 @@
-/* @override http://localhost:3000/client/instahood.css?4d3812fa6a1c3c0dd6bf85f757f0f71c85add9aa
-	http://localhost:3000/client/instahood.css?e8eb3d633fc32143a88c56e2a4f521d8deae63c2 */
+/* @override http://localhost:3000/client/instahood.css?76b4d9e989a44f7749ce16223c9ac741bbd0bd24 */
 
-/* @override http://localhost:3000/client/instahood.css?a5e52543b9bd3e698feb36445f69cec560c81d87 */
+/* @override http://localhost:3000/client/instahood.css?9ba6953601880f2c296e1032f11c01b6562c01a5 */
 
-html, body { 
+html, body {
     height: 100%;
     margin: 0;
     padding: 0; 
@@ -51,59 +50,10 @@ float: right;
 color: white;
 }
 
-#photos-container {
-    position:absolute;
-    left:50%;
-    min-width: 50%;
-    -webkit-transition: all 500ms linear;
-    transition: all 500ms linear;
-    height: 100%;
-    overflow:scroll;
-}
-
-.photo {
-    opacity: 1.0;
-    -webkit-transition: all 500ms linear;
-    transition: all 500ms linear;
-    width:100%;
-}
-
-/*.photo:hover {
-    opacity: 0.5;
-}*/
-
 #phone_number,#email{
 float:left;
 }
 
-#zoomed {
-    opacity: 1.0;
-    width: 100%;
-    /*z-index:999;*/
-    margin-left: 50px;
-}
-
-#zoomed-image {
-  display: none;
-position: fixed;
-width: 100%;
-text-align: center;
-left: 0px;
-right: 0px;
-top: 0px;
-bottom: 0px;
-z-index: 9000;
-background: rgba(0,0,0,.8);
-}
-#zoomed-image img{
-  display: block;
-text-align: center;
-margin: 20px auto;
-position: relative;
-max-width: 90%;
-max-height: 80%;
-border:solid 2px #fff;
-}
 
 .greyed {
     opacity: 0.05;
@@ -123,7 +73,7 @@ border:solid 2px #fff;
   overflow: hidden;
 }
 
-a.markerAddShow,a.settingsShow,#login-sign-in-link,a.markerEditShow{
+nav a{
 width: 90%;
 text-align: left;
     float: left;clear: both;
@@ -133,6 +83,16 @@ text-align: left;
 	color: white;
 	font-size: .8em;
 }
+
+#login-name-link {
+	width: 100%;
+}
+
+#login-dropdown-list {
+	margin-top: 1em;
+}
+
+nav small{clear:both;}
 
 #searchTextField {
   margin: 5px 0 5px 50px;
@@ -154,13 +114,8 @@ text-align: left;
   opacity:1;
 }
 
-#social {
-  float:right;
-  margin-top:5px;
-  margin-right:12%;
-}
 
-#login {
+#login {width:100%;clear:both;
   margin:2px 20px 0 0;
 }
 
@@ -185,282 +140,9 @@ text-align: left;
   width:30px;
 }
 
-.userInfo {
-  padding-top:9px;
-}
-.photodiv{
-     position: relative; 
-}
-
-
-@media all and (min-width: 640px) {
-  .photodiv { 
-     display: inline-block;
-     width: 32%;
-     /*height: 33%;*/
-  }
-}
-
-@media all and (min-device-width : 320px) and (max-device-width : 640px) {
-  .photodiv { 
-     position: relative; 
-     display: inline-block;
-     width: 100%;
-  }
-}
-
-.photodiv a { 
-   display: none;
-   position: absolute; 
-   top: 0; 
-   left: 0; 
-   width: 100%; 
-   z-index:1;
-   overflow: hidden;
-}
-.photodiv a span {
-   color: white; 
-   font: bold 18px/30px Helvetica, Sans-Serif; 
-   letter-spacing: -1px;  
-   background: rgb(0, 0, 0); /* fallback color */
-   background: rgba(0, 0, 0, 0.7);
-}
-
-#timestamp {
-  position: absolute;
-  margin-top: 12%;
-  bottom:0;
-}
-
-#timestamp span {
-  font-size: 10px;
-  letter-spacing: 0px;
-}
-
-.caption {
-  display: none;
-  position: absolute;
-  top: 0; 
-  left: 2%; 
-  width: 100%; 
-  z-index:1;
-  margin-top:15%;
-  padding: 10px;
-}
-
-.caption a{
-  display:inline;
-  width: 90%;
-}
-
-.caption a span {
-  position: relative;
-  text-shadow: 0 -1px 0 #bbb;
-  color: #eee;
-  font-family: Helvetica Neue, Helvetica, arial;
-  font-size: 18px;
-  line-height: 20px;
-  font-weight: bold;
-  background: none;
-}
-
-.tip {
-  margin-left: 20px;
-  font-size: 14px;
-}
-
 .login{
-  font-size: 13px;
+  font-size: 1em;
   text-align: right;
   float: right;
-}
-
-.social-coffee {
-  position: absolute;
-  bottom: 20%;
-  left: 30%;
-  display: none;
   width: 100%;
-}
-
-.facebook {
-  position:relative;
-  margin-left: 60px;
-}
-
-.social-coffee a {
-  display:inline;
-}
-
-.twitter-button {
-  background: url(/socialbuttons.png)-3px -153px;
-  height: 52px;
-  width: 50px;
-  opacity: .95;
-}
-
-.twitter-button:hover {
-  background: url(/socialbuttons.png)-3px -102px;
-  height: 49px;
-  width: 50px;
-  opacity: .9;
-}
-
-.fb-button {
-  background: url(/socialbuttons.png)-3px -52px;
-  height: 49px;
-  width: 50px;
-  opacity: .95;
-}
-
-.fb-button:hover {
-  background: url(/socialbuttons.png)-3px -2px;
-  height: 49px;
-  width: 50px;
-  opacity: .9;
-}
-
-/* BUBBLE LOADER*/
-
-.loading {
-  font-family: Helvetica;
-  font-size: 42px;
-  padding: 30px;
-  color: white;
-  position: absolute;
-  top: 60px;
-}
-
-.bubblingG {
-text-align: center;
-width:260px;
-height:200px;
-}
-
-.bubblingG span {
-display: inline-block;
-vertical-align: middle;
-width: 20px;
-height: 20px;
-margin: 50px auto;
-background: #000000;
--moz-border-radius: 100px;
--moz-animation: bubblingG 0.8s infinite alternate;
--webkit-border-radius: 100px;
--webkit-animation: bubblingG 0.8s infinite alternate;
--ms-border-radius: 100px;
--ms-animation: bubblingG 0.8s infinite alternate;
--o-border-radius: 100px;
--o-animation: bubblingG 0.8s infinite alternate;
-border-radius: 100px;
-animation: bubblingG 0.8s infinite alternate;
-}
-
-#bubblingG_1 {
--moz-animation-delay: 0s;
--webkit-animation-delay: 0s;
--ms-animation-delay: 0s;
--o-animation-delay: 0s;
-animation-delay: 0s;
-}
-
-#bubblingG_2 {
--moz-animation-delay: 0.24s;
--webkit-animation-delay: 0.24s;
--ms-animation-delay: 0.24s;
--o-animation-delay: 0.24s;
-animation-delay: 0.24s;
-}
-
-#bubblingG_3 {
--moz-animation-delay: 0.48s;
--webkit-animation-delay: 0.48s;
--ms-animation-delay: 0.48s;
--o-animation-delay: 0.48s;
-animation-delay: 0.48s;
-}
-
-@-moz-keyframes bubblingG {
-0% {
-width: 20px;
-height: 20px;
-background-color:#000000;
--moz-transform: translateY(0);
-}
-
-100% {
-width: 48px;
-height: 48px;
-background-color:#FFFFFF;
--moz-transform: translateY(-42px);
-}
-
-}
-
-@-webkit-keyframes bubblingG {
-0% {
-width: 20px;
-height: 20px;
-background-color:#000000;
--webkit-transform: translateY(0);
-}
-
-100% {
-width: 48px;
-height: 48px;
-background-color:#FFFFFF;
--webkit-transform: translateY(-42px);
-}
-
-}
-
-@-ms-keyframes bubblingG {
-0% {
-width: 20px;
-height: 20px;
-background-color:#000000;
--ms-transform: translateY(0);
-}
-
-100% {
-width: 48px;
-height: 48px;
-background-color:#FFFFFF;
--ms-transform: translateY(-42px);
-}
-
-}
-
-@-o-keyframes bubblingG {
-0% {
-width: 20px;
-height: 20px;
-background-color:#000000;
--o-transform: translateY(0);
-}
-
-100% {
-width: 48px;
-height: 48px;
-background-color:#FFFFFF;
--o-transform: translateY(-42px);
-}
-
-}
-
-@keyframes bubblingG {
-0% {
-width: 20px;
-height: 20px;
-background-color:#000000;
-transform: translateY(0);
-}
-
-100% {
-width: 48px;
-height: 48px;
-background-color:#FFFFFF;
-transform: translateY(-42px);
-}
-
 }
