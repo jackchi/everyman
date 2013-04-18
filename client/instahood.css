@@ -1,4 +1,5 @@
-/* @override http://localhost:3000/client/instahood.css?4d3812fa6a1c3c0dd6bf85f757f0f71c85add9aa */
+/* @override http://localhost:3000/client/instahood.css?4d3812fa6a1c3c0dd6bf85f757f0f71c85add9aa
+	http://localhost:3000/client/instahood.css?e8eb3d633fc32143a88c56e2a4f521d8deae63c2 */
 
 /* @override http://localhost:3000/client/instahood.css?a5e52543b9bd3e698feb36445f69cec560c81d87 */
 
@@ -271,6 +272,7 @@ text-align: left;
 .login{
   font-size: 13px;
   text-align: right;
+  float: right;
 }
 
 .social-coffee {
