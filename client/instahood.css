@@ -1,4 +1,4 @@
-/* @override http://localhost:3000/client/instahood.css?d2d51048e0f07c261748f3fdd4b1d44924a9f090 */
+	
 
 html, body {
     height: 100%;
@@ -17,7 +17,7 @@ p {
 
 nav {
     height: 100%;
-    overflow:scroll;
+    overflow:auto;
     font-size: 25px;
     top: 0;
     left: 0;
@@ -31,6 +31,11 @@ nav {
     line-height: 25px;
     padding-left: 25px;
 }
+
+#login-buttons-facebook,div.or {
+    display: none;
+}
+
 nav h3{
 	width: 90%;
 }
@@ -95,9 +100,12 @@ text-align: left;
 }
 
 #login-dropdown-list {
+margin-top: 3em;
+margin-right: 1.35em;
 }
 
-nav small{width: 95%;float: left;
+nav small{width: 98%;float: left;
+	font-size: .70em;
 }
 
 #searchTextField {
