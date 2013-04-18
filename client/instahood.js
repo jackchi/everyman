@@ -145,15 +145,37 @@ Template.markers.events({
     }
 });
 
-Template.loggedInMenu.rendered = function(){
-                $('div#social').hide();
-                $('div#marker_add').hide();
-                $('div#user_settings').hide();
-                $('div#the_markers').hide();
-                $('div#marker_edit').hide();
-
-
+var hideMenus = function(){
+    
 }
+
+Template.loggedInMenu.events({
+    'click .agencyAdd' : function(evt,tmpl){
+        Template.loggedInMenu.rendered();
+        $('div#agency_new').show();
+ 
+    },
+    'click .showMarkers' : function(evt,tmpl){
+        Template.loggedInMenu.rendered();
+        $('div#the_markers').show();
+ 
+    },
+    
+    'click .markerEditShow': function(evt,tmpl){
+        Template.loggedInMenu.rendered();
+        $('div#marker_edit').show();
+    },'click .markerAddShow': function(evt,tmpl){
+        Template.loggedInMenu.rendered();
+        $('div#marker_add').show();
+    },
+    'click .settingsShow': function(evt,tmpl){
+        Template.loggedInMenu.rendered();
+        console.log('showing settings');
+        $('div#user_settings').show();
+    },
+
+});
+
 
 
 Template.loggedInMenu.marker_index = function(evt,tmpl){
@@ -161,10 +183,26 @@ Template.loggedInMenu.marker_index = function(evt,tmpl){
     return markers.find({},{});
 }
 
+Template.loggedInMenu.rendered = function(evt,tmpl){
+    
+    $('div#marker_add').hide();
+    $('div#user_settings').hide();
+    $('div#the_markers').hide();
+    $('div#marker_edit').hide();
+    $('div#agency_new').hide();
+
+
+
+
+}
+
 Template.content.rendered = function(){
 // IF MOBILE .. attempt to detect screen orientation/load different css to do horizontal nav
 // versus vertical
   var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|iemobile|BlackBerry)/);
+  
+  //
+  
  
   if(navigator.geolocation){
          navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
