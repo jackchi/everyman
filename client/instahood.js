@@ -173,6 +173,14 @@ Template.loggedInMenu.events({
         console.log('showing settings');
         $('div#user_settings').show();
     },
+    'click .geolocate': function(evt,tmpl){
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+        }else{
+            alert('Could not geolocate');
+        }
+  
+    }
 
 });
 
@@ -202,14 +210,9 @@ Template.content.rendered = function(){
   var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|iemobile|BlackBerry)/);
   
   //
+  // default 
+  createMap(new google.maps.LatLng(37.7835478, -122.408953));
   
- 
-  if(navigator.geolocation){
-         navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
-  }else{
-  // allow for editing anyway?
-    alert('no geo location?');
-  }
   // if no map can be created then we are working offline...
 }
 
