@@ -297,7 +297,8 @@ function placeNavMarker (latLng,image,clickCallBack) {
         var image = "lodging.png";
     else if(typeof image == 'string'){
         // dont show this marker for the geocoded location
-        var image = image+ ".png";
+        var image = image + ".png";
+        console.log("Should be using"+image);
     }else{
         var image = "http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png";
     }
