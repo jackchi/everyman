@@ -268,7 +268,7 @@ function createMap (latLng) {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-    lookForMarkers();
+    lookForMarkers(latLng);
 };
 
 function successFunction(success) {
