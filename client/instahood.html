@@ -101,14 +101,15 @@
 
 <template name="newAgency">
     <div id="agency_new">
-        <input type="text" placeholder="Name of Agency" class="agency" />
-        <select class="type">
+        <input type="text" placeholder="Name of Agency" class="agency_name" />
+        
+        <select class="agency_type">
             <option>Hospital</option>
             <option>Clinic</option>
             <option>Gov. Related</option>
             <option>Other</option>
         </select>
-        <input type="administrators" placeholder="List of administrator email addresses comma seperated" size="400" />
+        <input class="agency_admin" type="text" placeholder="List of administrator email addresses comma seperated" size="400" />
     </div>
 </template>
 
@@ -116,7 +117,8 @@
     <div id="marker_add" >
         <select class="marker_type">
             <option>Hospital</option>
-            <option>Care Provider</option>
+            <option>Clinic</option>
+            <option>Pharmacy</option>
             <option>Shelter</option>
             <option>Other</option>
         </select>

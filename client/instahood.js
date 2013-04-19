@@ -241,19 +241,26 @@ function lookForMarkers(theBox){
     if(typeof c != 'undefined')
     c.filter(function (arr){
         // make new nat lav
-        console.log(arr['loc']);
+        console.log(arr);
+        
         /*
          Backwards support.. remove when releasing.. Supports the
          appropriate way of storing lat/long for geo queries.
         */
         if(typeof arr['loc'] != 'undefined'){
             var co = new google.maps.LatLng(arr['loc'][0], arr['loc'][1]);
-            
-            
+            var marker_type = '';
+            if(arr['type'] == 'Shelter'){
+            // default
+                marker_type = undefined;
+            }else if (arr['type'] == 'Hospital' ){
+            // set to 'hospital marker'
+                marker_type = '';
+
+            }else if( arr['type'] == '' ){
+                
+            }
             placeNavMarker(co,undefined,function(){alert(arr['name'] + ' ' + arr['type']);});
-        }else if(typeof arr['x'] != 'undefined' && typeof arr['y'] != 'undefined'){
-            var co = new google.maps.LatLng(arr['x'], arr['y']);
-            placeNavMarker(co);
         }
         }
     );
@@ -292,8 +299,10 @@ function placeNavMarker (latLng,image,clickCallBack) {
 
     if(typeof image == 'undefined')
         var image = "lodging.png";
-    else{
+    else if(typeof image == 'string'){
         // dont show this marker for the geocoded location
+        var image = "http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png";
+    }else{
         var image = "http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png";
     }
     // this map is not always there>>>?
