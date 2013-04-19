@@ -1,0 +1,221 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    font-family: "Arial";
+    background: url('/background.png');
+    color:white;
+}
+
+
+p {
+	font-size: .75em;letter-spacing:.1em;margin: 1em;
+}
+
+nav {
+    height: 100%;
+    overflow:auto;
+    font-size: 25px;
+    width: 15em;
+    min-width: 6em;
+    background-color: rgba(51,51,51,0.7);
+    z-index: 1;
+    text-shadow: 0 -1px 0 #bbb;
+    color: #eee;
+    font-family: Helvetica Neue, Helvetica, arial;
+    line-height: 25px;
+    padding-left: 5px;
+    min-width: 13em;
+}
+
+#login-name-link {
+margin-top: .5em;
+	font-size: .8em;float: left;
+}
+
+#login-buttons-facebook,div.or {
+    display: none;
+}
+
+nav h3{
+padding-top: .5em;
+width: auto;float: left;
+}
+
+input{
+	margin: 1em 0;
+	width: 85%;float: left;
+	margin-left: 1em;
+}
+
+
+input.marker_x,input.marker_y{
+	width: 2em;
+	
+}
+input.edit_marker{
+float: right;
+margin-right: 1.5em;
+margin-top: .1em;
+}
+
+#user_settings a {
+margin-right: 1em;
+float: right;
+color: white;
+}
+
+#phone_number,#email{
+float:left;
+}
+
+
+.greyed {
+    opacity: 0.05;
+}
+
+.hide {
+  opacity: 0.0;
+}
+
+#map_canvas { 
+  height: 100%;
+  position: absolute;
+  left: 26.5em;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+nav a{
+float: left;
+line-height: 2.5em;
+
+}
+
+input.del_marker {
+	margin-right: 1em;
+}
+
+span.marker{
+	width: 100%;float: left;height: 2.75em;
+	text-align: left;font-size: .8em;margin: 0;padding: 0;
+}
+
+#login-name-link {
+	width: 100%;
+}
+
+#login-dropdown-list {
+margin-top: 3em;
+margin-right: 1.35em;
+}
+
+nav small{width: 98%;float: left;margin-top: 1em;
+	font-size: .70em;
+}
+
+#searchTextField {
+  margin: 5px 0 5px 50px;
+}
+.no-photos {
+  color:white;
+  margin: 50px 0px 0px 30px
+}
+
+nav ul {
+list-style-type: none;
+margin: 0;line-height: 2em;float: left;	
+}
+
+nav li{
+	line-height: 1.3em;
+}
+
+.close {
+  position:fixed;
+  top: 20px;
+  opacity: .8;
+  z-index: 9999;
+  right: 20px;
+  padding:5px;
+}
+.close:hover{
+  opacity:1;
+}
+
+
+#login {width:100%;clear:both;
+  margin:2px 20px 0 0;
+}
+
+.popupPhoto {
+  height:250px;
+  width:250px;
+}
+
+.popupText {
+  position:relative;
+  text-shadow: 0 -1px 0 #bbb;
+  color: #333;
+  font-family: Helvetica Neue, Helvetica, arial;
+  font-size: 14px;
+  line-height: 25px;
+  padding: 4px 45px 4px 15px;
+  font-weight: bold;
+}
+
+.profilePicture {
+  height:30px;
+  width:30px;
+}
+
+.login{
+  font-size: 1em;
+  text-align: right;
+  float: right;
+  width: 100%;
+}
+
+div#main_menu {
+		float: left;
+		padding: .15em;
+		min-width: 13em;
+		margin-top: .5em;
+}
+
+#main_menu div{
+text-align: center;
+	border-radius: 10px;
+	border-top-left-radius: 0px;
+	padding: .15em;
+	padding-top: 1em;
+	float: left;clear: both;
+	width: 99%;
+	background-color:white;
+}
+/* for geolocate */
+
+select{
+ width: 90%;
+margin-top: .5em;	
+}
+
+#main_menu img,a.geolocate img{background-color: white;width: 1.5em;height: 1.5em;border-radius: 5px;border-bottom-right-radius:0px; border-bottom-left-radius: 0px;
+	margin-right: .7em;
+	float: left;clear: none;padding: .2em .4em;
+}
+
+a.geolocate img{
+background-color: green;
+float: right;
+margin: 1em 0 0 1.5em;
+	border-radius: 10px;	
+}
+
+#login-buttons-password {
+	height: auto;float: left;clear: both;width: 90%;
+}
+
