@@ -215,3 +215,7 @@ margin: 1em 0 0 1.5em;
 	border-radius: 10px;	
 }
 
+#login-buttons-password {
+	height: auto;float: left;clear: both;width: 90%;
+}
+
