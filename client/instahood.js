@@ -250,17 +250,13 @@ function lookForMarkers(theBox){
         if(typeof arr['loc'] != 'undefined'){
             var co = new google.maps.LatLng(arr['loc'][0], arr['loc'][1]);
             var marker_type = '';
-            if(arr['type'] == 'Shelter'){
+            if(arr['type'] == 'Shelter' || arr['type'] == 'Hospital' || arr['type'] == 'Other' || arr['type'] == 'Pharmacy'){
             // default
+                marker_type = arr['type'];
+            }else{
                 marker_type = undefined;
-            }else if (arr['type'] == 'Hospital' ){
-            // set to 'hospital marker'
-                marker_type = '';
-
-            }else if( arr['type'] == '' ){
-                
             }
-            placeNavMarker(co,undefined,function(){alert(arr['name'] + ' ' + arr['type']);});
+            placeNavMarker(co,marker_type,function(){alert(arr['name'] + ' ' + arr['type']);});
         }
         }
     );
@@ -301,7 +297,7 @@ function placeNavMarker (latLng,image,clickCallBack) {
         var image = "lodging.png";
     else if(typeof image == 'string'){
         // dont show this marker for the geocoded location
-        var image = "http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png";
+        var image = image+ ".png";
     }else{
         var image = "http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png";
     }
