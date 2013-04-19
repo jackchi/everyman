@@ -199,7 +199,7 @@ Template.loggedInMenu.rendered = function(evt,tmpl){
     $('div#marker_edit').hide();
     $('div#agency_new').hide();
 
-
+    lookForMarkers();
 
 
 }
@@ -212,7 +212,9 @@ Template.content.rendered = function(){
   //
   // default 
   createMap(new google.maps.LatLng(37.7835478, -122.408953));
-  
+  lookForMarkers(latLng);
+
+// lookForMarkers();
   // if no map can be created then we are working offline...
 }
 
@@ -268,7 +270,6 @@ function createMap (latLng) {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-    lookForMarkers(latLng);
 };
 
 function successFunction(success) {
