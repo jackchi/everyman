@@ -294,7 +294,7 @@ function errorFunction(success) {
 function placeNavMarker (latLng,image,clickCallBack) {
 
     if(typeof image == 'undefined')
-        var image = "lodging.png";
+        var image = "Other.png";
     else if(typeof image == 'string'){
         // dont show this marker for the geocoded location
         var image = image + ".png";
