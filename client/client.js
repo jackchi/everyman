@@ -250,7 +250,7 @@ function lookForMarkers(theBox){
         if(typeof arr['loc'] != 'undefined'){
             var co = new google.maps.LatLng(arr['loc'][0], arr['loc'][1]);
             var marker_type = '';
-            if(arr['type'] == 'Shelter' || arr['type'] == 'Hospital' || arr['type'] == 'Other' || arr['type'] == 'Pharmacy'){
+            if(arr['type'] == 'Shelter' || arr['type'] == 'Hospital' || arr['type'] == 'Other' || arr['type'] == 'Pharmacy' || arr['type'] == 'Clinic'){
             // default
                 marker_type = arr['type'];
             }else{
