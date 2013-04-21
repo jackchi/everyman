@@ -12,20 +12,20 @@
 </body>
 
 <template name="nav">
-    <nav> 
-
+    <nav>
         <span class="login">
             {{loginButtons align="right"}}
        </span>
-       
+        <h3 width="80%">Carelink.me - DEMO</h3>
+
        {{#if currentUser}}
             {{>loggedInMenu}}
-       {{else}}
-        <img src="iphone_ss2.png" class="img-rounded">
-        <p class="lead">Carelink allows patients and health care providers to connect, share updates and more! Sign In to Start!</p>     
-        <h3>Team</h3>
-        <small>      
-         <ul class="team">
+        {{else}}
+        <br/>
+         <p>CareLink.me is a geo-location communication platform that connects over-utilizers of ER / ambulance services with their primary case managers.</p>
+        <small>
+         <ul>
+            <li><strong>Team</strong></li>
             <li>Jackie Chia-Hsun Lee, Engineer</li>
             <li>Ronaldo Barbachano, Engineer</li>
             <li>Jack Chi, Engineer</li>
@@ -72,8 +72,6 @@
             {{>markers}}
            {{/each}}
         </div>
-        
-        <small>Double click to add a marker</small>
 
     </div>
 

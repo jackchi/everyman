@@ -1,3 +1,13 @@
+/* @override http://localhost:3000/client/client.css?ed7a6b717e8ffe2b26621fdf09e475fa95a1caaa */
+
+/* @override http://localhost:3000/client/client.css?41b1202e24a0c9aa4bacf8c8f0673a58fb14d56a */
+
+/* @override http://localhost:3000/client/client.css?f340f5d1b884687938a23b43bcdb15fcf6e9e895 */
+
+/* @override http://localhost:3000/client/client.css?e7485f9b698187a8f54e0580cf29d8ad1ce27fbd */
+
+/* @override http://localhost:3000/client/client.css?ce16256ddbd4e62b8f0ccbfc5b401011621ddc2d */
+
 html, body {
     height: 100%;
     margin: 0;
@@ -16,7 +26,7 @@ p {
 }
 
 nav {
-    height: 100%;
+    height: auto;
     overflow:auto;
     font-size: 25px;
     width: 15em;
@@ -45,8 +55,7 @@ margin-top: .5em;
 }
 
 nav h3{
-padding-top: .5em;
-width: auto;float: left;
+margin-left: .5em;overflow:hidden;
 }
 
 input{
@@ -119,7 +128,7 @@ margin-top: 3em;
 margin-right: 1.35em;
 }
 
-nav small{width: 98%;float: left;margin-top: 1em;
+nav small{width: 93%;float: left;margin-top: 1em;margin-left: 1em;
 	font-size: .70em;
 }
 
@@ -216,8 +225,7 @@ margin-top: .5em;
 
 a.geolocate img{
 background-color: green;
-float: right;
-margin: 1em 0 0 1.5em;
+margin: .1em 0 0 .15em;
 	border-radius: 10px;	
 }
 
@@ -225,3 +233,12 @@ margin: 1em 0 0 1.5em;
 	height: auto;float: left;clear: both;width: 90%;
 }
 
+#the_markers {
+	min-height: 4em;
+	border-top-left-radius:0px;
+}
+
+a.edit_marker {
+	float: left;
+	height: 2em;overflow: hidden;
+}

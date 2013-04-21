@@ -1,54 +1,4 @@
 markers = new Meteor.Collection("clinics");
-/*
-
-    A GEO TAGGING COMMUNITY
-    []
-
-    Allow users to join agencies and be tracked
-    independently in each. Present the user a way
-    to select the agency they are in after logging in.
-    
-    Agencies act as a a list of markers that cannot be modified by
-    its members. Members can send their own geocoding location and timestamps to
-    agencies for their personal tracking and agencies can send sms messages 
-    if the user opts in.
-    
-
-        Agency
-        
-        { 
-          _id: <mongo_id>,
-          title: <string>,
-          owner: <mongo_id:users._id>
-        }
-        
-        
-        **Field 'access' might refer to a simple string,
-        integer or another mongo id inside another collection;
-        but controls the visibility of the marker. Wether its public,
-        private to the user (default for users) or inside of the groups
-        the user has the ability to post markers to.
-        
-        Marker
-        {
-            _id: <mongo_id>,
-            title: <>,
-            owner: <users._id || agencies.id>,
-            address: <string>,
-            access: <**>,
-            loc : [<float>,<float>]
-        
-        }
-    
-    
-    If users have accounts at the same agency that are different 
-    'types' (i.e. user/marker admin) then show entries for each
-    
-    Admin accounts can add points that are viewable by everyone.
-    
-    Users can add points inside of their own account, and inside of 
-    groups
-*/
 
 agencies = new Meteor.Collection("agencies");
 
@@ -60,16 +10,7 @@ Meteor.startup(function(){
 
 Template.add_marker.events({
     'click input.add_marker' : function(evt,tmpl){
-    /*
-
-        ADD NEW marker
-            1) Geocode Address
-            2) Store data to database for marker.
-
-    */
-        var record ={};
-        // use tmpl.data??
-        console.log('in add marker event');
+   var record ={};
         var geo_term=tmpl.find(".marker_address").value;
         record.name = tmpl.find(".marker_name").value;
         record.type = tmpl.find(".marker_type").value;
@@ -83,7 +24,6 @@ Template.add_marker.events({
                     record.loc = [results.geometry.location.jb,results.geometry.location.kb];
                     markers.insert(record);
                     lookForMarkers([results.geometry.location.jb,results.geometry.location.kb]);
-                    //document.getElementById('.marker_address').value = '';
                 }else{
                 /*
                     Would you like to insert this marker anyway?
@@ -92,19 +32,9 @@ Template.add_marker.events({
                     // show input fields..
                 }
             });
-            /*
-            
-                ALSO STORE A USER token of some sort so they might
-                have secure access
-                
-            */
-            
-            // From here let server build the marker and update client.
             $('#marker_add').hide();
-            
             // show the button to add another marker
             $('.markerAddShow').show();
-            console.log('Its all here lets make an insert. and probably hide something...');
             
             // remove fields from session to avoid accidental field duplication/reentry
         }else{
@@ -115,42 +45,37 @@ Template.add_marker.events({
     }
 });
 
+Template.add
 
-Template.map.events({
-    'dblclick div#map_canvas' : function(evt,tmpl){
-        placeNavMarker(map.center,undefined,function(){alert("Did you want to place a marker here?")});
+//Template.map.events({
+   // 'dblclick div#map_canvas' : function(evt,tmpl){
+     //   placeNavMarker(map.center,undefined,function(){alert("Did you want to place a marker here?")});
 
-    }
+//    }
 
-});
-
-
+//});
 
 Template.markers.events({
     'click input.del_marker' : function(evt,tmpl){
+        // Meteor.call("delete_record", mongo_id);
+        // then remove locally ? this would not be needed.. probably
         markers.remove({_id:tmpl.data._id});
-        // refresh the overlays
-        // eventually use SESSION variable to keep track of how to filter the markers
-        // based on the user settings/permissions etc.
-        lookForMarkers();
-    
+        // am i really to look for more markers? wont auto update do this?
     },
     'click a.edit_marker' :function(evt,tmpl){
-        console.log('edit');
         // probably use the index to look for the term eventually...
         var latlng = new google.maps.LatLng(tmpl.data.loc[0], tmpl.data.loc[1]);
-
         map.setCenter(latlng);
-//        console.log(tmpl.data.loc[0]);
     }
 });
 
-var hideMenus = function(){
-    
-}
-
 Template.loggedInMenu.events({
     'click .agencyAdd' : function(evt,tmpl){
+        // Meteor.call("add_agency");
+        // step one get input from tmpl
+        console.log(tmpl);
+        // agencies.insert();
+        // step to hide all menus (agency add was clicked)
         Template.loggedInMenu.rendered();
         $('div#agency_new').show();
  
@@ -212,7 +137,8 @@ Template.content.rendered = function(){
   //
   // default 
   createMap(new google.maps.LatLng(37.7835478, -122.408953));
-  lookForMarkers(latLng);
+  // is this running?
+  lookForMarkers();
 
 // lookForMarkers();
   // if no map can be created then we are working offline...
@@ -235,7 +161,7 @@ currentMarkers = [];
 
 function lookForMarkers(theBox){
 // set ceter of map to the marker you just created
-    c = markers.find({}, {fields: {_id: 1}}).fetch();
+    c = markers.find({}, {}).fetch();
     console.log(currentMarkers.length);
     //console.log(c);
     if(typeof c != 'undefined')
@@ -285,7 +211,7 @@ function successFunction(success) {
 }
 
 function errorFunction(success) {
-    var latlng = new google.maps.LatLng(37.808631, -122.474470);
+    var latlng = new google.maps.LatLng(37.7835478, -122.408953);
     createMap(latlng);
     placeNavMarker(navLatLng);
 //  addAutocomplete();
