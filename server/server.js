@@ -10,13 +10,13 @@ if (Meteor.isServer) {
 
   agencies = new Meteor.Collection("agencies");
 
-    Meteor.publish("myMarkers"),function(agency_id,group_id,vis){
+  Meteor.publish("myMarkers", function(agency_id,group_id,vis){
   //      console.log(this);
 //        var agency = agencies.find({_id:agency_id},{});
         // eventually get agency id..
         return markers.find();
 
-    }
+    });
 
   Meteor.startup(function () {
     // theres no org..
