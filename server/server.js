@@ -1,30 +1,27 @@
 if (Meteor.isServer) {
   self= this;
 
-  markers = new Meteor.Collection("clinics");
+  markers = new Meteor.Collection("markers");
 
   markers._ensureIndex({ loc : "2d" });
 
-  Org = new Meteor.Collection('Org');
 
   users = new Meteor.Collection("user");
 
+  agencies = new Meteor.Collection("agencies");
+
+    Meteor.publish("myMarkers"),function(agency_id,group_id,vis){
+  //      console.log(this);
+//        var agency = agencies.find({_id:agency_id},{});
+        // eventually get agency id..
+        return markers.find();
+
+    }
+
   Meteor.startup(function () {
     // theres no org..
-    if (Org.find().count() === 0) {
-      
-      var names = ["Jack Chi",
-                   "Zak Zibrat",
-                   "Marie Curie",
-                   "Carl Friedrich Gauss",
-                   "Nikola Tesla",
-                   "Claude Shannon",
-                   "Ronaldo Barbachano"];
-      for (var i = 0; i < names.length; i++)
-        Org.insert({name: names[i], score: Math.floor(Random.fraction()*10)*5});
-    }
- 
 
+    
 
 
  });
@@ -41,6 +38,18 @@ if (Meteor.isServer) {
         return true;
     },
     
+    
+    newAgency : function(title,type){
+        // figure out user id??? how???
+        var user_id = '', timestamp = 212930212;
+      //  agencies.insert({"title": title,"type":type,"owner":user_id,"created":timestamp});
+
+    },
+    
+    findAgencies : function(agency_id){
+        //
+    
+    },
    
     findMarker : function(x,y){
         console.log(x);
@@ -52,12 +61,8 @@ if (Meteor.isServer) {
          console.log(r.length);
         return r;
     },
-    findmarkers : function(){
+    findMarkers : function(){
         console.log('finding markers');
-        var c = markers.find({},{}).fetch();
-        c.filter(function(arr){
-            console.log(arr);
-        });
         return markers.find({},{}).fetch();
     },
     markersIndex : function(){

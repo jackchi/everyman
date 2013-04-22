@@ -1,10 +1,54 @@
-markers = new Meteor.Collection("clinics");
-
-agencies = new Meteor.Collection("agencies");
+//markers = new Meteor.Collection("clinics");
+//agencies = new Meteor.Collection("agencies");
+  markers = new Meteor.Collection("markers");
+  agencies = new Meteor.Collection("agencies");
+    markersHandle = Meteor.subscribe("myMarkers",function(){
+            console.log('markers ready');
+        });
 
 Meteor.startup(function(){
       geocoder = new google.maps.Geocoder();
+        cursor = markers.find();
+
+
+
+        cursor.observe({
+          "added": function (coll,id,fields) {
+            /*
+                Call inside the publish function. Informs the subscriber that a document has been added to the record set.
+            */
+            console.log('added');
+            console.log(coll);
+            console.log(id);
+            
+            // call serverside method to insert document?
+            
+          },
+          "changed":function(coll,id,fields){
+          /*
+             Informs the subscriber that a document in the record set has been modified.
+          */
+          
+          
+          },
+          "removed":function(coll,id){
+          
+          },
+          "ready":function(coll,id){
+          
+          /*
+             Informs the subscriber that an initial, complete snapshot of the record set has been sent. This will trigger a call on the client to the onReady callback passed to Meteor.subscribe, if any.
+          */
+          
+            console.log('record set ready!');
+            console.log(coll);
+          }
+        })
+      
+      
+      
 });
+
 
 
 
@@ -45,7 +89,12 @@ Template.add_marker.events({
     }
 });
 
-Template.add
+Template.agencies.events({
+    'click a.agency_title' : function(evt,tmpl){
+        console.log(tmpl.data);
+    }
+
+})
 
 //Template.map.events({
    // 'dblclick div#map_canvas' : function(evt,tmpl){
@@ -113,10 +162,18 @@ Template.loggedInMenu.events({
 
 Template.loggedInMenu.marker_index = function(evt,tmpl){
 // get User. something to filter this find
+    var cursor = markers.find();
+    console.log(cursor);
     return markers.find({},{});
 }
 
+Template.agencies.getAgencies = function(evt,tmpl){
+    console.log(Meteor.user);
+}
 Template.loggedInMenu.rendered = function(evt,tmpl){
+    
+
+
     
     $('div#marker_add').hide();
     $('div#user_settings').hide();
@@ -124,7 +181,6 @@ Template.loggedInMenu.rendered = function(evt,tmpl){
     $('div#marker_edit').hide();
     $('div#agency_new').hide();
 
-    lookForMarkers();
 
 
 }
@@ -159,10 +215,36 @@ Template.settings.events({
  */
 currentMarkers = [];
 
+
+
+function placeNavMarker (latLng,image,clickCallBack) {
+
+    if(typeof image == 'undefined')
+        var image = "Other.png";
+    else if(typeof image == 'string'){
+        // dont show this marker for the geocoded location
+        var image = image + ".png";
+        console.log("Should be using"+image);
+    }else{
+        var image = "http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png";
+    }
+    // this map is not always there>>>?
+    var new_marker = new google.maps.Marker({
+      position: latLng,
+      map: map,
+      icon: image
+    });
+    if(typeof clickCallBack == 'function')
+        google.maps.event.addListener(new_marker,"click",clickCallBack);
+    currentMarkers.push( new_marker );
+}
+
 function lookForMarkers(theBox){
 // set ceter of map to the marker you just created
-    c = markers.find({}, {}).fetch();
-    console.log(currentMarkers.length);
+    c = markers.find();
+    
+    console.log(markers);
+    console.log(c);
     //console.log(c);
     if(typeof c != 'undefined')
     c.filter(function (arr){
@@ -215,26 +297,4 @@ function errorFunction(success) {
     createMap(latlng);
     placeNavMarker(navLatLng);
 //  addAutocomplete();
-}
-
-function placeNavMarker (latLng,image,clickCallBack) {
-
-    if(typeof image == 'undefined')
-        var image = "Other.png";
-    else if(typeof image == 'string'){
-        // dont show this marker for the geocoded location
-        var image = image + ".png";
-        console.log("Should be using"+image);
-    }else{
-        var image = "http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png";
-    }
-    // this map is not always there>>>?
-    var new_marker = new google.maps.Marker({
-      position: latLng,
-      map: map,
-      icon: image
-    });
-    if(typeof clickCallBack == 'function')
-        google.maps.event.addListener(new_marker,"click",clickCallBack);
-    currentMarkers.push( new_marker );
 }
