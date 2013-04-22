@@ -1,12 +1,28 @@
 Meteor.startup(function(){
     markers = new Meteor.Collection("markers");
+    taxonomies = new Meteor.Collection("taxonomies");
+
     agencies = new Meteor.Collection("agencies");
     geocoder = new google.maps.Geocoder();
-    markersHandle = Meteor.subscribe("myMarkers",
+    
+    Deps.autorun(function(){
+        markersHandle = Meteor.subscribe("myMarkers",
+            function(){
+            // this will show the 'public markers' by default if not logged in.
+                if(typeof map != 'undefined')
+                    lookForMarkers();
+                });
+            });
+        
+        taxHandle = Meteor.subscribe("taxonomies",
         function(){
-        console.log('markers ready');lookForMarkers();
+        // this will show the 'public markers' by default if not logged in.
+            console.log('taxes ready');
         });
+        
 });
+
+
 /*
  *  TEMPLATE EVENTS
  *
@@ -52,11 +68,14 @@ Template.add_marker.events({
 });
 
 Template.agencies.events({
-    'click a.agency_title' : function(evt,tmpl){
+    'click a.tax_title' : function(evt,tmpl){
         console.log(tmpl.data);
     }
 
-})
+});
+
+
+
 
 //Template.map.events({
    // 'dblclick div#map_canvas' : function(evt,tmpl){
@@ -84,12 +103,16 @@ Template.loggedInMenu.events({
     'click .agencyAdd' : function(evt,tmpl){
         // Meteor.call("add_agency");
         // step one get input from tmpl
-        console.log(tmpl);
+        console.log(tmpl.findAll());
         // agencies.insert();
         // step to hide all menus (agency add was clicked)
         Template.loggedInMenu.rendered();
         $('div#agency_new').show();
  
+    },
+    'click .tax' : function(evt,tmpl){
+        Template.loggedInMenu.rendered();
+        $('div#taxonomy_add').show();
     },
     'click .showMarkers' : function(evt,tmpl){
         Template.loggedInMenu.rendered();
@@ -118,6 +141,16 @@ Template.loggedInMenu.events({
     }
 });
 
+Template.add_taxonomy.events({
+    'click .add_tax' : function(evt,tmpl){
+        //Template.loggedInMenu.rendered();
+        var record = {};
+        record.title= tmpl.find(".tax_title").value;
+        record.grouping= tmpl.find(".group_title").value;
+        taxonomies.insert(record);
+    }
+});
+
 /*
  *  TEMPLATE FUNCTIONS
  *
@@ -131,12 +164,18 @@ Template.loggedInMenu.marker_index = function(evt,tmpl){
 Template.agencies.getAgencies = function(evt,tmpl){
 //    console.log(Meteor.user);
 }
+
+Template.marker_select.getMarkerTypes = function(evt, tmpl){
+    return taxonomies.find({'grouping':'marker_type'});
+}
 Template.loggedInMenu.rendered = function(evt,tmpl){
     $('div#marker_add').hide();
     $('div#user_settings').hide();
     $('div#the_markers').hide();
     $('div#marker_edit').hide();
     $('div#agency_new').hide();
+    $('div#taxonomy_add').hide();
+
 }
 
 Template.content.rendered = function(){
