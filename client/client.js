@@ -1,71 +1,33 @@
-//markers = new Meteor.Collection("clinics");
-//agencies = new Meteor.Collection("agencies");
-  markers = new Meteor.Collection("markers");
-  agencies = new Meteor.Collection("agencies");
-    markersHandle = Meteor.subscribe("myMarkers",function(){
-            console.log('markers ready');
-        });
-
 Meteor.startup(function(){
-      geocoder = new google.maps.Geocoder();
-        cursor = markers.find();
-
-
-
-        cursor.observe({
-          "added": function (coll,id,fields) {
-            /*
-                Call inside the publish function. Informs the subscriber that a document has been added to the record set.
-            */
-            console.log('added');
-            console.log(coll);
-            console.log(id);
-            
-            // call serverside method to insert document?
-            
-          },
-          "changed":function(coll,id,fields){
-          /*
-             Informs the subscriber that a document in the record set has been modified.
-          */
-          
-          
-          },
-          "removed":function(coll,id){
-          
-          },
-          "ready":function(coll,id){
-          
-          /*
-             Informs the subscriber that an initial, complete snapshot of the record set has been sent. This will trigger a call on the client to the onReady callback passed to Meteor.subscribe, if any.
-          */
-          
-            console.log('record set ready!');
-            console.log(coll);
-          }
-        })
-      
-      
-      
+    markers = new Meteor.Collection("markers");
+    agencies = new Meteor.Collection("agencies");
+    geocoder = new google.maps.Geocoder();
+    markersHandle = Meteor.subscribe("myMarkers",
+        function(){
+        console.log('markers ready');lookForMarkers();
+        });
 });
-
-
-
+/*
+ *  TEMPLATE EVENTS
+ *
+ */
 
 Template.add_marker.events({
     'click input.add_marker' : function(evt,tmpl){
-   var record ={};
+        var record ={};
+        // TODO use values from 'tmpl.data' instead of doing searches!
         var geo_term=tmpl.find(".marker_address").value;
         record.name = tmpl.find(".marker_name").value;
         record.type = tmpl.find(".marker_type").value;
-        record.visibility = tmpl.find(".marker_type").marker_visiblity;
-        console.log(record);
+        record.visibility = tmpl.find(".marker_visiblity").value;
         if(typeof geocoder != 'undefined'){
             geocoder.geocode({'address':geo_term},function(results,status){
                 results = results[0];
                 if(status == google.maps.GeocoderStatus.OK){
                     map.setCenter(results.geometry.location);
                     record.loc = [results.geometry.location.jb,results.geometry.location.kb];
+                    record.createdBy = Meteor.userId();
+                    
                     markers.insert(record);
                     lookForMarkers([results.geometry.location.jb,results.geometry.location.kb]);
                 }else{
@@ -153,69 +115,44 @@ Template.loggedInMenu.events({
         }else{
             alert('Could not geolocate');
         }
-  
     }
-
 });
 
-
+/*
+ *  TEMPLATE FUNCTIONS
+ *
+ */
 
 Template.loggedInMenu.marker_index = function(evt,tmpl){
-// get User. something to filter this find
-    var cursor = markers.find();
-    console.log(cursor);
+    lookForMarkers();
     return markers.find({},{});
 }
 
 Template.agencies.getAgencies = function(evt,tmpl){
-    console.log(Meteor.user);
+//    console.log(Meteor.user);
 }
 Template.loggedInMenu.rendered = function(evt,tmpl){
-    
-
-
-    
     $('div#marker_add').hide();
     $('div#user_settings').hide();
     $('div#the_markers').hide();
     $('div#marker_edit').hide();
     $('div#agency_new').hide();
-
-
-
 }
 
 Template.content.rendered = function(){
 // IF MOBILE .. attempt to detect screen orientation/load different css to do horizontal nav
 // versus vertical
   var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|iemobile|BlackBerry)/);
-  
-  //
-  // default 
+  // set 'default' .. maybe store a 'default location; in user settings
   createMap(new google.maps.LatLng(37.7835478, -122.408953));
-  // is this running?
   lookForMarkers();
-
-// lookForMarkers();
-  // if no map can be created then we are working offline...
 }
-
-/* TODO
-Template.settings.events({
- 
-    'click input.update' : function(evt,tmpl){
-    
-    }
-});*/
-/* BEGIN GMAPS
-
-
- TO Eventually support hiding /showing markers quickly in gmaps.. trying to get that to work properly..
- 
+/*
+ *  GMAPS FUNCTIONS
+ *
  */
+
 currentMarkers = [];
-
-
 
 function placeNavMarker (latLng,image,clickCallBack) {
 
@@ -242,12 +179,7 @@ function placeNavMarker (latLng,image,clickCallBack) {
 function lookForMarkers(theBox){
 // set ceter of map to the marker you just created
     c = markers.find();
-    console.log('looking for markers');
-    //console.log(c);
     c.forEach(function(doc){
-        console.log(doc);
-        
-        
        if(typeof doc['loc'] != 'undefined'){
         var co = new google.maps.LatLng(doc['loc'][0], doc['loc'][1]);
         var marker_type = '';
@@ -263,7 +195,6 @@ function lookForMarkers(theBox){
 }
 
 function createMap (latLng) {
-    console.log('making map');
     var mapOptions = {
         disableDoubleClick: true,
         streetViewControl: false,
@@ -276,17 +207,26 @@ function createMap (latLng) {
 };
 
 function successFunction(success) {
-  var navLatLng = new google.maps.LatLng(success.coords.latitude, success.coords.longitude);
-  // annoying...
-  createMap(navLatLng);
-  // send it true option to use different marker
-  placeNavMarker(navLatLng,true);
-  lookForMarkers([navLatLng.jb,navLatLng.kb]);
+
+    var navLatLng = new google.maps.LatLng(success.coords.latitude, success.coords.longitude);
+    // annoying...
+    createMap(navLatLng);
+    // send it true option to use different marker
+    placeNavMarker(navLatLng,true);
+    lookForMarkers([navLatLng.jb,navLatLng.kb]);
 }
 
 function errorFunction(success) {
     var latlng = new google.maps.LatLng(37.7835478, -122.408953);
     createMap(latlng);
     placeNavMarker(navLatLng);
-//  addAutocomplete();
 }
+
+/* TODO
+Template.settings.events({
+ 
+    'click input.update' : function(evt,tmpl){
+    
+    }
+});*/
+
