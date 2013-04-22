@@ -11,46 +11,40 @@ if (Meteor.isServer) {
   agencies = new Meteor.Collection("agencies");
 
   Meteor.publish("myMarkers", function(agency_id,group_id,vis){
-  //      console.log(this);
-//        var agency = agencies.find({_id:agency_id},{});
-        // eventually get agency id..
-        return markers.find();
-
+        if(typeof this.userId != 'null'){
+            return markers.find({createdBy: this.userId});
+            
+            // hand this an extra query to find public visiblity and then
+            // eventually use a client side session var to decide
+            // which ones to show/ create lists etc.
+            }
+        else
+            return markers.find({visibility: 'public'});
+   
     });
 
   Meteor.startup(function () {
     // theres no org..
-
-    
-
-
- });
+    });
  
    Meteor.methods({
-   
     isLoggedIn : function(uid){
     
     },
-   
     isAdmin : function(uid){
         // do we have session here?
         console.log(Session);
         return true;
     },
-    
-    
     newAgency : function(title,type){
         // figure out user id??? how???
         var user_id = '', timestamp = 212930212;
       //  agencies.insert({"title": title,"type":type,"owner":user_id,"created":timestamp});
-
     },
     
     findAgencies : function(agency_id){
         //
-    
     },
-   
     findMarker : function(x,y){
         console.log(x);
         console.log(y);
