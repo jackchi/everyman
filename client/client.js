@@ -242,32 +242,24 @@ function placeNavMarker (latLng,image,clickCallBack) {
 function lookForMarkers(theBox){
 // set ceter of map to the marker you just created
     c = markers.find();
-    
-    console.log(markers);
-    console.log(c);
+    console.log('looking for markers');
     //console.log(c);
-    if(typeof c != 'undefined')
-    c.filter(function (arr){
-        // make new nat lav
-        console.log(arr);
+    c.forEach(function(doc){
+        console.log(doc);
         
-        /*
-         Backwards support.. remove when releasing.. Supports the
-         appropriate way of storing lat/long for geo queries.
-        */
-        if(typeof arr['loc'] != 'undefined'){
-            var co = new google.maps.LatLng(arr['loc'][0], arr['loc'][1]);
-            var marker_type = '';
-            if(arr['type'] == 'Shelter' || arr['type'] == 'Hospital' || arr['type'] == 'Other' || arr['type'] == 'Pharmacy' || arr['type'] == 'Clinic'){
-            // default
-                marker_type = arr['type'];
-            }else{
-                marker_type = undefined;
-            }
-            placeNavMarker(co,marker_type,function(){alert(arr['name'] + ' ' + arr['type']);});
+        
+       if(typeof doc['loc'] != 'undefined'){
+        var co = new google.maps.LatLng(doc['loc'][0], doc['loc'][1]);
+        var marker_type = '';
+        if(doc['type'] == 'Shelter' || doc['type'] == 'Hospital' || doc['type'] == 'Other' || doc['type'] == 'Pharmacy' || doc['type'] == 'Clinic'){
+        // default
+            marker_type = doc['type'];
+        }else{
+            marker_type = undefined;
         }
+        placeNavMarker(co,marker_type,function(){alert(doc['name'] + ' ' + doc['type']);});
         }
-    );
+    });
 }
 
 function createMap (latLng) {
